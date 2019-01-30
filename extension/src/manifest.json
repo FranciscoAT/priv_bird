@@ -22,5 +22,6 @@
             "third-party/jquery-3.3.1.min.js",
             "background_scripts/background.js"
         ]
-    }
+    },
+    "browser_action": {}
 }

@@ -16,6 +16,18 @@ $(document).ready(() => {
 
     // All code should exist below this!!
 
-    
+    var num = Math.floor((Math.random() * 10) + 1);
+    console.log(num);
+    chrome.runtime.sendMessage({
+        action: "alertNumber",
+        value: num
+    }, (err) => {
+        if (err) {
+            console.log(error);
+        } else {
+            console.log("No error");
+        }
+    });
+
     
 });
