@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     currentXML = req.body.newp3pfile;
     console.log(`Setting new XML file to ${currentXML}`);
-})
+});
 
 function getDirFileNames(dirName) {
     p3pFiles = []
