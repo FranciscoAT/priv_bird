@@ -19,10 +19,14 @@ You should now see it up in the top right corner.
 
 ## Reloading
 
-**Note**: 
+**Note**:
 
 - Install this chrome extension!! https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid
 - Also run `npm install` on this directory
 
 1. Running `npm start` or `gulp` will have `gulp` constatly watch the contents of `src/*` and on save will cause a reload of `http://reload.extensions`. However this will cause my screen to activate on chrome which is a little annoying when dealing w/ constant saving in dev
 1. Running `npm reload` or `gulp reload` will just run the reload extension. Not automatic but a bit nicer when dealing with only run things when you want.
+
+Some additional notes:
+
+- If you modify `manifest.json` the above methods won't work. Manually go to `chrome://extensions` to get there then click the reload icon for the Privacy Bird Extension.

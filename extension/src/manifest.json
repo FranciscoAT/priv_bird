@@ -4,8 +4,7 @@
     "description": "Privacy Bird Extension",
     "manifest_version": 2,
     "permissions": [
-        "activeTab",
-        "http://localhost*"
+        "<all_urls>"
     ],
     "content_scripts": [
         {
@@ -13,14 +12,15 @@
                 "<all_urls>"
             ],
             "js": [
-                "background.js"
-            ],
-            "run_at": "document_end"
+                "third-party/jquery-3.3.1.min.js",
+                "content_scripts/content.js"
+            ]
         }
     ],
     "background": {
         "scripts": [
-            "third-party/jquery-3.3.1.min.js"
+            "third-party/jquery-3.3.1.min.js",
+            "background_scripts/background.js"
         ]
     }
 }

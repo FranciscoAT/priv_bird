@@ -4,7 +4,8 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "reload": "gulp reload"
   },
   "author": "",
   "license": "ISC",
