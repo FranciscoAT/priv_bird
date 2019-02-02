@@ -2,9 +2,7 @@
 <POLICIES
 	xmlns="http://www.w3.org/2002/01/P3Pv1"
 	xmlns:p3p11="http://www.w3.org/2006/01/P3Pv11">
-	<POLICY name="testP3P"
-   discuri="http://www.catalog.example.com/Privacy/PrivacyPracticeShopping.html"
-   opturi="http://catalog.example.com/preferences.html"
+	<POLICY name="testP3P"   
    xml:lang="en">
 		<!-- contains contact info of site -->
 		<ENTITY>
@@ -46,27 +44,16 @@
 			</RETENTION>
 			<DATA-GROUP>
 				<datatype>
-					<user></user>
+					<user>
+					<contact-info>
+						<name/>
+						<email/>
+						<address/>
+					</contact-info>
+					</user>
 
 				</datatype>
 			</DATA-GROUP>
-			<EXTENSION>
-				<p3p11:data-group>
-					<p3p11:datatype>
-						<p3p11:user>
-							<p3p11:name/>
-							<p3p11:home-info>
-								<p3p11:postal/>
-								<p3p11:telecom>
-									<p3p11:telephone/>
-								</p3p11:telecom>
-								<p3p11:online>
-									<p3p11:email/>
-								</p3p11:online>
-							</p3p11:home-info>
-						</p3p11:datatype>
-					</p3p11:data-group>
-				</EXTENSION>
 			</STATEMENT>
 		</POLICY>
 	</POLICIES>
