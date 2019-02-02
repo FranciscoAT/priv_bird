@@ -50,6 +50,14 @@ app.get('/p3p.xml', (req, res) => {
     res.send(contents);
 });
 
+app.get('/form', (req, res) => {
+    res.render('form');
+});
+
+app.post('/form', (req, res) => {
+    var formItems = req.body;
+});
+
 app.listen(port, (err) => {
     if (err) {
         return console.log("Something went wrong.", err);
