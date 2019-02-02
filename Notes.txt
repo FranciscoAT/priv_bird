@@ -17,8 +17,8 @@ Terminal - site web:
 		http://localhost:3000/p3p.xml
 
 --------------------------------------------------
-Commandes utiles:
-	
+Commandes utiles:	
+
 	Pull 
 		cd priv_bird/  //pour avoir tous les changements dans tes fichiers
 		git pull	
@@ -36,6 +36,8 @@ Commandes utiles:
 		git commit form.pug -m "commentaire ici pour ton commit" 
 		git push
 
+	Pour NamChi (https://help.github.com/articles/setting-your-commit-email-address-in-git/)
+		git config --global user.email "email@example.com"
 
 -------------------------------------------------------
 
