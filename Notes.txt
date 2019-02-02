@@ -19,6 +19,10 @@ Terminal - site web:
 --------------------------------------------------
 Commandes utiles:
 	
+	Pull 
+		cd priv_bird/  //pour avoir tous les changements dans tes fichiers
+		git pull	
+
 	Push
 		En premier, il faut commit (local, seulement toi qui peut voir les modifications)		
 			cd "ecrit le chemin du fichier que tu as modifier" (ex: cd priv_bird/sample-site)
@@ -31,5 +35,10 @@ Commandes utiles:
 		git add form.pug	//ajouter le fichier form.pug
 		git commit form.pug -m "commentaire ici pour ton commit" 
 		git push
+
+
+-------------------------------------------------------
+
+
 				
 		
