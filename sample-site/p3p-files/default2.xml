@@ -1,5 +1,74 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<note>
-    <filename>default2.xml</filename>
-    <default>This is the default XML document. Please select a different p3p document</default>
-</note>
+<!--Test P3P policy for obtaining personal data submitted in a form-->
+<POLICIES
+	xmlns="http://www.w3.org/2002/01/P3Pv1"
+	xmlns:p3p11="http://www.w3.org/2006/01/P3Pv11">
+	<POLICY name="testP3P"
+   discuri="http://www.catalog.example.com/Privacy/PrivacyPracticeShopping.html"
+   opturi="http://catalog.example.com/preferences.html"
+   xml:lang="en">
+		<!-- contains contact info of site -->
+		<ENTITY>
+			<EXTENSION>
+				<p3p11:data-group>
+					<p3p11:datatype>
+						<p3p11:business>
+							<p3p11:orgname>U of O</p3p11:orgname>
+							<p3p11:contact-info>
+								<p3p11:postal>
+									<p3p11:street>75 Laurier Ave E</p3p11:street>
+									<p3p11:city>Ottawa</p3p11:city>
+									<p3p11:province>ON</p3p11:province>
+									<p3p11:postalcode>ON K1N 6N5</p3p11:postalcode>
+									<p3p11:country>Canada</p3p11:country>
+								</p3p11:postal>
+								<p3p11:online>
+									<p3p11:email>test@uottawa.com</p3p11:email>
+								</p3p11:online>
+							</p3p11:contact-info>
+						</p3p11:business>
+					</p3p11:datatype>
+				</p3p11:data-group>
+			</EXTENSION>
+		</ENTITY>
+		<!-- TODO - state personal data that site has access to (e.g. name, addr, email, etc)-->
+		<ACCESS>
+			<contact-and-other/>
+		</ACCESS>
+		<STATEMENT>
+			<PURPOSE>
+				<current/>
+			</PURPOSE>
+			<RECIPIENT>
+				<ours/>
+			</RECIPIENT>
+			<RETENTION>
+				<stated-purpose/>
+			</RETENTION>
+			<DATA-GROUP>
+				<datatype>
+					<user></user>
+
+				</datatype>
+			</DATA-GROUP>
+			<EXTENSION>
+				<p3p11:data-group>
+					<p3p11:datatype>
+						<p3p11:user>
+							<p3p11:name/>
+							<p3p11:home-info>
+								<p3p11:postal/>
+								<p3p11:telecom>
+									<p3p11:telephone/>
+								</p3p11:telecom>
+								<p3p11:online>
+									<p3p11:email/>
+								</p3p11:online>
+							</p3p11:home-info>
+						</p3p11:datatype>
+					</p3p11:data-group>
+				</EXTENSION>
+			</STATEMENT>
+		</POLICY>
+	</POLICIES>
+
+
