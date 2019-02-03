@@ -26,7 +26,8 @@ app.get('/', (req, res) => {
     p3pFiles = getDirFileNames(p3pDir);
     res.render('index', {
         p3pFiles: p3pFiles,
-        currentp3p: currentXML
+        currentp3p: currentXML,
+        jsFile: "index"
     });
 });
 
@@ -51,11 +52,14 @@ app.get('/p3p.xml', (req, res) => {
 });
 
 app.get('/form', (req, res) => {
-    res.render('form');
+    res.render('form', {
+        jsFile: "form"
+    });
 });
 
 app.post('/form', (req, res) => {
     var formItems = req.body;
+    console.log(formItems);
 });
 
 app.listen(port, (err) => {
