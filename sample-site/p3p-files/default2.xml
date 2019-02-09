@@ -46,7 +46,7 @@
 			<contact-and-other/>
 		</ACCESS>
 
-	<!-- Dispute -->
+	<!-- TODO - Dispute -->
 	<DISPUTES-GROUP>
       <DISPUTES resolution-type="independent"
        service="http://www.PrivacySeal.example.org"
@@ -96,16 +96,6 @@
 						<p3p11:email/>
 						</p3p11:online>
 					</p3p11:home-info>
-					<p3p11:business-info>
-						<p3p11:postal/>
-						<p3p11:telecom>
-						<p3p11:telephone/>
-						</p3p11:telecom>
-					</p3p11:business-info>
-					<p3p11:login>
-						<p3p11:id/>
-						<p3p11:password/>
-					</p3p11:login>
 					</p3p11:user>
 					<p3p11:dynamic>
 					<p3p11:miscdata>
@@ -123,11 +113,7 @@
 			<DATA ref="#user.name"/>
 				<DATA ref="#user.home-info.postal"/>
 				<DATA ref="#user.home-info.telecom.telephone"/>
-				<DATA ref="#user.business-info.postal"/>
-				<DATA ref="#user.business-info.telecom.telephone"/>
 				<DATA ref="#user.home-info.online.email"/>
-				<DATA ref="#user.login.id"/>
-				<DATA ref="#user.login.password"/>
 				<DATA ref="#dynamic.miscdata">
 
 			<!-- Categories are elements inside data elements that provide hints to users and user agents as to the intended uses of the data. -->
