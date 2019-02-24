@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<title>User Preferences</title>
+
+<h1>User Preferences</h1>
+
+<div id="nameVal"></div>
+<div id="emailVal"></div>
+<div id="addressVal"></div>
+
+    <p>Information that websites can use. Check the box if you agree to having your information shared.</p>
+    <p><input type="checkbox" id="name"> Name</p>
+    <p><input type="checkbox" id="email"> Email</p>
+    <p><input type="checkbox" id="address"> Address</p>
+
+    <p><input type="submit" id="save" value="Save">
+    <input type="submit" id="reset" value="Reset"></p>
+	
+	<p><button onclick="saveData()" type="button">Testing!</button></p>
+
+<script>
+//Référence: https://www.w3schools.com/HTML/html5_webstorage.asp
+
+//quand tu ouvres le browser, exécute les instructions suivantes:
+// Check browser support
+if (typeof(Storage) !== "undefined") {
+
+  document.getElementById("nameVal").innerHTML = localStorage.getItem("nameVal");
+  document.getElementById("emailVal").innerHTML = localStorage.getItem("emailVal");
+  document.getElementById("addressVal").innerHTML = localStorage.getItem("addressVal");
+  
+  //set checkbox based on user last saved preference
+  if (localStorage.getItem("nameVal") == true){
+	document.getElementById("name").checked = true;
+  }	else {
+	document.getElementById("name").checked = false;
+  }
+  
+    if (localStorage.getItem("emailVal") == true){
+	document.getElementById("email").checked = true;
+  }	else {
+	document.getElementById("email").checked = false;
+  }
+  
+    if (localStorage.getItem("addressVal") == true){
+	document.getElementById("address").checked = true;
+  }	else {
+	document.getElementById("address").checked = false;
+  }
+  
+  
+} else {
+  document.getElementById("nameVal").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+
+  
+  //sauvegarder les données dans local storage!!!!
+ function saveData() {
+	if (typeof(Storage) !== "undefined") {
+		
+		//enlever ce qu'il y avait avant
+		localStorage.removeItem("nameVal");
+		localStorage.removeItem("emailVal");
+		localStorage.removeItem("addressVal");
+		
+		//remplacer par ce que l'utilisateur a choisi
+		localStorage.setItem("nameVal", document.getElementById("name").checked);
+		localStorage.setItem("emailVal", document.getElementById("email").checked);
+		localStorage.setItem("addressVal", document.getElementById("address").checked);
+		
+		//afficher la valeur True or False sur la page web
+		document.getElementById("nameVal").innerHTML = localStorage.getItem("nameVal");
+		document.getElementById("emailVal").innerHTML = localStorage.getItem("emailVal");
+		document.getElementById("addressVal").innerHTML = localStorage.getItem("addressVal");
+		
+  } else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+  }
+}
+  
+  </script>
+
+</body>
+</html>
