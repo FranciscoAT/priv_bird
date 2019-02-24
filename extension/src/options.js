@@ -1,4 +1,5 @@
 
+//CHANGER directement sur le site web
 // Save user preferences - test 2
 function saveUserPreferences() {
     var name = document.getElementById("name").checked;
