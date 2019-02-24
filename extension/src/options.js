@@ -1,5 +1,5 @@
 
-//CHANGER directement sur le site web
+//CHANGER directement sur le site web - commit test 2
 // Save user preferences - test 2
 function saveUserPreferences() {
     var name = document.getElementById("name").checked;
