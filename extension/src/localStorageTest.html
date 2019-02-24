@@ -32,19 +32,19 @@ if (typeof(Storage) !== "undefined") {
   document.getElementById("addressVal").innerHTML = localStorage.getItem("addressVal");
   
   //set checkbox based on user last saved preference
-  if (localStorage.getItem("nameVal") == true){
+  if (localStorage.getItem("nameVal") == "true"){
 	document.getElementById("name").checked = true;
   }	else {
 	document.getElementById("name").checked = false;
   }
   
-    if (localStorage.getItem("emailVal") == true){
+    if (localStorage.getItem("emailVal") == "true"){
 	document.getElementById("email").checked = true;
   }	else {
 	document.getElementById("email").checked = false;
   }
   
-    if (localStorage.getItem("addressVal") == true){
+    if (localStorage.getItem("addressVal") == "true"){
 	document.getElementById("address").checked = true;
   }	else {
 	document.getElementById("address").checked = false;
