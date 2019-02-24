@@ -46,15 +46,15 @@
 			<contact-and-other/>
 		</ACCESS>
 
-	<!-- TODO - Dispute -->
+	<!-- Dispute - the entity offers or acknowledges the following ways for a user to resolve disputes about the entity's privacy practices or alleged protocol violations.-->
 	<DISPUTES-GROUP>
-      <DISPUTES resolution-type="independent"
+      <DISPUTES resolution-type="independent" 
        service="http://www.PrivacySeal.example.org"
        short-description="PrivacySeal.example.org">
         <IMG src="http://www.PrivacySeal.example.org/Logo.gif" alt="PrivacySeal's logo"/>
 
 	<!-- Remedies -->
-        <REMEDIES><correct/></REMEDIES>
+        <REMEDIES><correct/></REMEDIES> <!-- We will correct any errors we make related to the commitments in our privacy policy -->
       </DISPUTES>
     </DISPUTES-GROUP>
 
