@@ -14,7 +14,10 @@ function watch() {
     let watchFile = 'encrypt.src.js';
     gulp.watch(
         `${watchPath}${watchFile}`,
-        compileScripts(watchPath, watchFile)
+        (cb) => {
+            compileScripts(watchPath, watchFile);
+            cb();
+        }
     );
 }
 
