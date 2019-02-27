@@ -52,9 +52,7 @@ app.get('/p3p.xml', (req, res) => {
 });
 
 app.get('/form', (req, res) => {
-    res.render('form', {
-        jsFile: "form"
-    });
+    res.render('form');
 });
 
 app.post('/form', (req, res) => {
