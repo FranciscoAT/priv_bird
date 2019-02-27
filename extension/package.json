@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "gulp": "^4.0.0",
-    "gulp-open": "^3.0.1"
+    "gulp-open": "^3.0.1",
+    "ibejs": "^1.1.0"
   }
 }
