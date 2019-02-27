@@ -5,15 +5,15 @@ $(document).ready(() => {
      * the manifest json complains about localhost only urls
      */
 
-    let allowed_url = 'localhost:3000'
+    let base_url = 'http://localhost:3000/'
     let current_url = $(location).attr("href");
-    if (!current_url.includes(allowed_url)) {
+    if (!current_url.includes(base_url)) {
         return
     }
 
     // Get the p3p.xml and send it to background js
     let p3pLocation = 'p3p.xml';
-    makeRequest('GET', `${current_url}${p3pLocation}`)
+    makeRequest('GET', `${base_url}${p3pLocation}`)
         .then((data) => {
             sendMessage('p3pData', data);
         })

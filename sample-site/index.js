@@ -58,8 +58,11 @@ app.get('/form', (req, res) => {
 });
 
 app.post('/form', (req, res) => {
-    var formItems = req.body;
-    console.log(formItems);
+    var formData = req.body;
+    console.log(formData);
+    res.render('submit', {
+        formData: JSON.stringify(formData, undefined, 2)
+    });
 });
 
 app.listen(port, (err) => {
