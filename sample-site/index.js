@@ -3,12 +3,15 @@ const fs = require('fs');
 const path = require('path');
 const expresshbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const IBE = require('ibejs');
 
 const app = express();
 const port = 3000;
 
 var currentXML = 'default.xml';
 var p3pDir = './p3p-files';
+var ibe = new IBE();
+var sec_key = '';
 
 app.engine('.hbs', expresshbs({
     defaultLayout: 'main',
@@ -33,20 +36,12 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     currentXML = req.body.newp3pfile;
+    updateKeys();
     console.log(`Setting new XML file to ${currentXML}`);
 });
 
-function getDirFileNames(dirName) {
-    p3pFiles = []
-    fs.readdirSync(dirName).forEach(file => {
-        p3pFiles.push(file);
-    });
-    return p3pFiles;
-}
-
 app.get('/p3p.xml', (req, res) => {
-    var docToSend = `${p3pDir}/${currentXML}`;
-    var contents = fs.readFileSync(docToSend, 'UTF-8');
+    var contents = getP3PFile();
     res.set('Content-Type', 'text/xml');
     res.send(contents);
 });
@@ -56,10 +51,12 @@ app.get('/form', (req, res) => {
 });
 
 app.post('/form', (req, res) => {
-    var formData = req.body;
-    console.log(formData);
+    let formData = req.body;
+    formData = parseInput(formData);
+    let decData = decrypt(formData);
     res.render('submit', {
-        formData: JSON.stringify(formData, undefined, 2)
+        formData: JSON.stringify(formData, undefined, 2),
+        decData: JSON.stringify(decData, undefined, 2)
     });
 });
 
@@ -70,3 +67,39 @@ app.listen(port, (err) => {
 
     console.log(`Now listening on port ${port}, go to http://localhost:${port}`);
 });
+
+// Functions
+updateKeys();
+
+function parseInput(data) {
+    if ('enc-data' in data) {
+        data = JSON.parse(data['enc-data']);
+    }
+
+    return data;
+}
+
+function decrypt(data) {
+    if (!'encMsg' in data) {
+        return data;
+    } 
+
+    let dec_data = ibe.decrypt(sec_key, data);
+    return JSON.parse(dec_data);
+}
+
+function updateKeys() {
+    sec_key = ibe.getPrivateKey(getP3PFile());
+}
+
+function getP3PFile(p3pFile = currentXML) {
+    return fs.readFileSync(`${p3pDir}/${p3pFile}`);
+}
+
+function getDirFileNames(dirName) {
+    p3pFiles = []
+    fs.readdirSync(dirName).forEach(file => {
+        p3pFiles.push(file);
+    });
+    return p3pFiles;
+}

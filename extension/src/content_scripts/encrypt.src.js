@@ -1,8 +1,33 @@
 $(document).ready(() => {
+
+    if (checkURL()) {
+        return;
+    }
+
     const IBE = require('ibejs');
     let ibe = new IBE();
-    let id = "abc@gmail.com";
-    let msg = "test";
-    let enc_msg = ibe.encrypt(id, msg);
-    console.log(enc_msg);
+
+    $('form').on('submit', (e) => {
+        // Get the details on the form
+        e.preventDefault();
+        let $form = $(e.target);
+        let formInputs = JSON.stringify($form.serializeArray());
+        let formAction = $form.attr('action');
+
+        // Encrypt the data
+        let encData = ibe.encrypt(p3pxmlRaw, formInputs);
+        
+        // Create hidden form and submit encrypted data
+        let $body = $('body');
+        let inputDataId = "hiddenEncDataInputPrivBird";
+        let hiddenFormId = "hiddenFormIdPrivBird";
+        let hiddenForm = `<form id=${hiddenFormId} action=${formAction} method=POST>
+                              <input hidden id="${inputDataId}" name="enc-data" type="string"></input>
+                              <input hidden id=${inputDataId}-note name="note" type="string"></input>
+                          </form>`
+        $body.append(hiddenForm);
+        $(`#${inputDataId}`).val(JSON.stringify(encData));
+        $(`#${inputDataId}-note`).val('This Data has been Encrypted by Privacy Bird');
+        $(`#${hiddenFormId}`).submit();
+    });
 });

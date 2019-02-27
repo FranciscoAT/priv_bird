@@ -14,6 +14,7 @@
             ],
             "js": [
                 "third-party/jquery-3.3.1.min.js",
+                "lib_scripts/local_lib.js",
                 "content_scripts/content.js",
                 "content_scripts/encrypt.bundle.min.js"
             ]
