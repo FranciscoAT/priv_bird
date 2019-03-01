@@ -36,12 +36,12 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     currentXML = req.body.newp3pfile;
-    updateKeys();
+    updateKeys(currentXML);
     console.log(`Setting new XML file to ${currentXML}`);
 });
 
 app.get('/p3p.xml', (req, res) => {
-    var contents = getP3PFile();
+    var contents = getP3PFile(currentXML);
     res.set('Content-Type', 'text/xml');
     res.send(contents);
 });
@@ -66,10 +66,8 @@ app.listen(port, (err) => {
     }
 
     console.log(`Now listening on port ${port}, go to http://localhost:${port}`);
+    updateKeys(currentXML);
 });
-
-// Functions
-updateKeys();
 
 function parseInput(data) {
     if ('enc-data' in data) {
@@ -88,11 +86,11 @@ function decrypt(data) {
     return JSON.parse(dec_data);
 }
 
-function updateKeys() {
-    sec_key = ibe.getPrivateKey(getP3PFile());
+function updateKeys(p3pFile) {
+    sec_key = ibe.getPrivateKey(getP3PFile(p3pFile));
 }
 
-function getP3PFile(p3pFile = currentXML) {
+function getP3PFile(p3pFile) {
     return fs.readFileSync(`${p3pDir}/${p3pFile}`);
 }
 
