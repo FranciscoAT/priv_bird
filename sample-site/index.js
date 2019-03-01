@@ -31,7 +31,7 @@ app.post('*', (req, res, next) => {
     if (!data) {
         res.locals.data = req.body;
     } else {
-        res.locals.data = decrypt(data);
+        res.locals.data = convertArrToJson(decrypt(data));
     }
     next();
 });
@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-    currentXML = res.locals.data[0].value;
+    currentXML = res.locals.data.newp3pfile;
     updateKeys(currentXML);
     console.log(`Setting new XML file to ${currentXML}`);
     res.redirect('/');
@@ -63,7 +63,7 @@ app.get('/form', (req, res) => {
 
 app.post('/form', (req, res) => {
     let formData = parseInput(req.body);
-    let decData = decrypt(req.data);
+    let decData = res.locals.data;
     res.render('submit', {
         formData: JSON.stringify(formData, undefined, 2),
         decData: JSON.stringify(decData, undefined, 2)
@@ -110,4 +110,14 @@ function getDirFileNames(dirName) {
         p3pFiles.push(file);
     });
     return p3pFiles;
+}
+
+function convertArrToJson(arrIn) {
+    console.log(arrIn);
+    let newJSON = {};
+    for (let i = 0; i < arrIn.length; i++) {
+        let tempObj = arrIn[i];
+        newJSON[tempObj.name] = tempObj.value;
+    }
+    return newJSON;
 }
