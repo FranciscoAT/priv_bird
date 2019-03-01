@@ -25,19 +25,30 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+// Privacy Bird Middleware
+app.post('*', (req, res, next) => {
+    let data = parseInput(req.body);
+    if (!data) {
+        res.locals.data = req.body;
+    } else {
+        res.locals.data = decrypt(data);
+    }
+    next();
+});
+
 app.get('/', (req, res) => {
     p3pFiles = getDirFileNames(p3pDir);
     res.render('index', {
         p3pFiles: p3pFiles,
-        currentp3p: currentXML,
-        jsFile: "index"
+        currentp3p: currentXML
     });
 });
 
 app.post('/', (req, res) => {
-    currentXML = req.body.newp3pfile;
+    currentXML = res.locals.data[0].value;
     updateKeys(currentXML);
     console.log(`Setting new XML file to ${currentXML}`);
+    res.redirect('/');
 });
 
 app.get('/p3p.xml', (req, res) => {
@@ -51,9 +62,8 @@ app.get('/form', (req, res) => {
 });
 
 app.post('/form', (req, res) => {
-    let formData = req.body;
-    formData = parseInput(formData);
-    let decData = decrypt(formData);
+    let formData = parseInput(req.body);
+    let decData = decrypt(req.data);
     res.render('submit', {
         formData: JSON.stringify(formData, undefined, 2),
         decData: JSON.stringify(decData, undefined, 2)
@@ -71,10 +81,10 @@ app.listen(port, (err) => {
 
 function parseInput(data) {
     if ('enc-data' in data) {
-        data = JSON.parse(data['enc-data']);
+        return JSON.parse(data['enc-data']);
+    } else {
+        return false;
     }
-
-    return data;
 }
 
 function decrypt(data) {
