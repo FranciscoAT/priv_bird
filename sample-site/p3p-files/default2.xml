@@ -3,7 +3,7 @@
 	xmlns="http://www.w3.org/2002/01/P3Pv1"
 	xmlns:p3p11="http://www.w3.org/2006/01/P3Pv11">
 	<POLICY name="formP3P"  
-	   discuri="http://www.catalog.example.com/Privacy/PrivacyPracticeShopping.html" 
+	   discuri="http://localhost:3000/privacypolicy.html" 
    xml:lang="en">
 		<!-- Contact information of site creating this policy-->
 		<ENTITY>
@@ -11,7 +11,7 @@
 				<p3p11:data-group>
 					<p3p11:datatype>
 						<p3p11:business>
-							<p3p11:orgname>U of O</p3p11:orgname>
+							<p3p11:orgname>University of Ottawa</p3p11:orgname>
 							<p3p11:contact-info>
 								<p3p11:postal>
 									<p3p11:street>75 Laurier Ave E</p3p11:street>
@@ -49,9 +49,9 @@
 	<!-- Dispute - the entity offers or acknowledges the following ways for a user to resolve disputes about the entity's privacy practices or alleged protocol violations.-->
 	<DISPUTES-GROUP>
       <DISPUTES resolution-type="independent" 
-       service="http://www.PrivacySeal.example.org"
-       short-description="PrivacySeal.example.org">
-        <IMG src="http://www.PrivacySeal.example.org/Logo.gif" alt="PrivacySeal's logo"/>
+       service="http://localhost:3000"
+       short-description="http://localhost:3000">
+        />
 
 	<!-- Remedies -->
         <REMEDIES><correct/></REMEDIES> <!-- We will correct any errors we make related to the commitments in our privacy policy -->
@@ -111,7 +111,7 @@
 			<!-- at least one DATA-GROUP element that contains one or more datatype extension elements. datatype extension elements are used to describe the type of data that a site collects-->
 			<DATA-GROUP>
 			<DATA ref="#user.name"/>
-				<DATA ref="#user.home-info.postal"/>
+				<DATA ref="#user.home-info.postal.street"/>
 				<DATA ref="#user.home-info.telecom.telephone"/>
 				<DATA ref="#user.home-info.online.email"/>
 				<DATA ref="#dynamic.miscdata">
