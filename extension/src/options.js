@@ -5,11 +5,13 @@ function saveUserPreferences() {
     var name = document.getElementById("name").checked;
     var email = document.getElementById("email").checked;
     var addr = document.getElementById("address").checked;
+    var phone = document.getElementById("phone").checked;
 
     chrome.storage.local.set({
       name: name,
       email: email,
-      addr: addr
+      addr: addr,
+      phone: phone
 
     }, function() {
       
@@ -27,11 +29,13 @@ function saveUserPreferences() {
     chrome.storage.local.get({
       name: false,
       email: false,
-      addr: false
+      addr: false,
+      phone: false
     }, function(checkBoxes) {
       document.getElementById("name").checked = checkBoxes.name;
       document.getElementById("email").checked = checkBoxes.email;
       document.getElementById("address").checked = checkBoxes.addr;
+      document.getElementById("phone").checked = checkBoxes.phone;
     });
   }
   
