@@ -10,16 +10,29 @@ function handleP3P(data) {
     
     // 1. Parse to JSON
     var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
-    var test = xmlToJson(xmlDOM);
-    console.log(test);
-    
+    var p3p = xmlToJson(xmlDOM);
+
     // 2. Get values in P3P to compare to user pref
+    //console.log(p3p);
+    var userData = p3p.POLICIES.POLICY.STATEMENT["DATA-GROUP"].DATA;
+    var collectedData = []
+
+    for (var i = 0; i < userData.length; i++) {
+       collectedData[i] = userData[i]["@attributes"].ref;
+      console.log(userData[i]["@attributes"].ref); 
+    }
+    //console.log(collectedData[0])
+
+
+
+    
 
     // 3. Flag
     
 
-    // Handle p3p data here
+    
 }
+
 
 
 // Commented out for future reference (setBadgeText is useful)
