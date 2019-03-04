@@ -7,9 +7,20 @@ chrome.runtime.onMessage.addListener((msg, sender, res) => {
 });
 
 function handleP3P(data) {
-    console.log(data);
+    
+    // 1. Parse to JSON
+    var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
+    var test = xmlToJson(xmlDOM);
+    console.log(test);
+    
+    // 2. Get values in P3P to compare to user pref
+
+    // 3. Flag
+    
+
     // Handle p3p data here
 }
+
 
 // Commented out for future reference (setBadgeText is useful)
 // chrome.runtime.onMessage.addListener((msg, sender, res) => {
