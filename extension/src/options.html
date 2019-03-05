@@ -6,10 +6,34 @@
 <body>
 
     <p>Information that websites can use. Check the box if you agree to having your information shared.</p>
-    <p><input type="checkbox" id="name"> Name</p>
-    <p><input type="checkbox" id="email"> Email</p>
-    <p><input type="checkbox" id="address"> Address</p>
-    <p><input type="checkbox" id="phone"> Phone</p>
+
+    <p><strong>Name</strong>
+    	<p><input type="checkbox" id="name_share"> Share name </p>
+    	<p><input type="number" id="name_stored" min="0"> Max stored name (in month) </p>
+    </p>
+
+
+    <p><strong>Email</strong>
+    	<p><input type="checkbox" id="email_share"> Share email </p>
+    	<p><input type="number" id="email_stored"  min="0"> Max stored email (in month) </p>
+    	<p><input type="checkbox" id="email_recieve"> May receive email by website </p>
+    </p>
+
+    <p><strong>Address</strong>
+    	<p><input type="checkbox" id="address_share"> Share address </p>
+    	<p><input type="number" id="address_stored"  min="0"> Max stored address (in month) </p>
+    	<p><input type="checkbox" id="address_recieve"> May receive mail by website </p>
+    </p>
+
+    <p><strong>Phone</strong>
+    	<p><input type="checkbox" id="phone_share"> Share phone number </p>
+    	<p><input type="number" id="phone_stored"  min="0"> Max stored phone number (in month) </p>
+    	<p><input type="checkbox" id="phone_recieve"> May receive call by website </p>
+    </p>
+
+    <p><strong>Credit Card Number</strong>
+    	<p><input type="number" id="credit_card_stored"> Max stored phocredit card number (in month) </p>
+    </p>
 
 <button id="save">Save</button>
 <div id="msg"></div>
