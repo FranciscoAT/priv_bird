@@ -87,9 +87,28 @@ function handleP3P(data) {
     localStorage.removeItem("phoneVal");
 
 
+    // Commented out for future reference (setBadgeText is useful)
+// chrome.runtime.onMessage.addListener((msg, sender, res) => {
+//     if (msg.action === 'alertNumber') {
+//         console.log(msg);
+//         chrome.browserAction.setBadgeText({
+//             text: `${msg.value}`
+//         });
+//     }
+// });
+
 
     // 3. Flag
    
+   //match => green icone
+
+
+   //NOT match, afficher un popup pour demander a l'utilisateur si on peut prendre x donnees
+
+   //option d'opt out => icone rouge
+
+   //option de changer ses user's preferences
+
     
 } //end of function P3P handle
 
@@ -171,17 +190,35 @@ function handleP3P(data) {
 		return localStorage.getItem("phoneVal");
 	}
 
-
-// Commented out for future reference (setBadgeText is useful)
-// chrome.runtime.onMessage.addListener((msg, sender, res) => {
-//     if (msg.action === 'alertNumber') {
-//         console.log(msg);
-//         chrome.browserAction.setBadgeText({
-//             text: `${msg.value}`
-//         });
-//     }
-// });
-
+  
+  // --------------------------Ajouter du code pour changer l'icône--------------------------
+  //Modification to icon
+  //Sources: https://developer.chrome.com/extensions/browserAction
+  //https://stackoverflow.com/questions/35852715/changing-chrome-extension-icon
+  function iconColorChange(){
+	var status = "vert";
+	chrome.browserAction.setBadgeText( { text: status } );
+	chrome.browserAction.setBadgeBackgroundColor({color: [0,255,0,255]});
+  }
+  
+  
+  //remet l'icône comme avant
+  function iconColorDeChange(){
+	var status = "";
+	chrome.browserAction.setBadgeText( { text: status } );
+	chrome.browserAction.setBadgeBackgroundColor({color: [0,0,0]});
+  }
+ 
+ 
+  //NE fonctionne pas - code pour un pop up
+  //à moins que popup n'est pas un string mais un fichier html comme dans les exemples?
+  function iconPopUp(){
+	var msg = "not work";	
+	chrome.browserAction.setBadgeText( { text: msg } );
+	chrome.browserAction.setBadgeBackgroundColor({color: "red"});
+	
+	chrome.browserAction.setPopup({popup: "afficher msg"}); //fonctionne pas
+  }
 
 
 /* ------------------------------------------------------------------------------------------
