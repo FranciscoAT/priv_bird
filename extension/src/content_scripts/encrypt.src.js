@@ -8,6 +8,11 @@ $(document).ready(() => {
     let ibe = new IBE();
 
     $('form').on('submit', (e) => {
+        // ignore this hook if no p3p
+        if (!hasp3p) {
+            return;
+        }
+
         // Get the details on the form
         e.preventDefault();
         let $form = $(e.target);

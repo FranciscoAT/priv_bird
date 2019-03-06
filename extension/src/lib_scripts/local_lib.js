@@ -3,10 +3,15 @@ const base_url = 'http://localhost:3000/'
 const current_url = $(location).attr("href");
 const p3pLocation = 'p3p.xml';
 let p3pxmlRaw = '';
+let hasp3p = false;
 
 // Library Functions
 function checkURL() {
-    return !current_url.includes(base_url);
+    let result = !current_url.includes(base_url);
+    if (result == true) {
+        console.log("Bad URL");
+    }
+    return result;
 }
 
 function makeRequest(method, url) {
