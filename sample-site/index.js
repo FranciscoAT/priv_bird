@@ -4,14 +4,15 @@ const path = require('path');
 const expresshbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const IBE = require('ibejs');
+const request = require('request');
 
 const app = express();
 const port = 3000;
 
+let ibe = new IBE();
 var currentXML = 'default.xml';
 var p3pDir = './p3p-files';
-var ibe = new IBE();
-var sec_key = '';
+var sec_key;
 
 app.engine('.hbs', expresshbs({
     defaultLayout: 'main',
@@ -97,7 +98,22 @@ function decrypt(data) {
 }
 
 function updateKeys(p3pFile) {
-    sec_key = ibe.getPrivateKey(getP3PFile(p3pFile));
+    let xml = getP3PFile(p3pFile);
+
+    request.post(
+        'http://localhost:3030/getpkey',
+        { form: {
+            xml: xml
+        }},
+        (err, httpres, body) => {
+            body = JSON.parse(body);
+            sec_key = body.pkey;
+        }
+    );
+
+    console.log(sec_key);
+
+    console.log(`Updated private key using xml file ${currentXML}`);
 }
 
 function getP3PFile(p3pFile) {

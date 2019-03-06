@@ -8,9 +8,11 @@
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "fs": "0.0.1-security",
+    "http": "0.0.0",
     "ibejs": "^1.1.0",
     "nodemon": "^1.18.9",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {
