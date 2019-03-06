@@ -110,9 +110,6 @@ function updateKeys(p3pFile) {
             sec_key = body.pkey;
         }
     );
-
-    console.log(sec_key);
-
     console.log(`Updated private key using xml file ${currentXML}`);
 }
 
