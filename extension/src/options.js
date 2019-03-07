@@ -26,7 +26,7 @@ function saveUserPreferences() {
 
 
     // store the user's preference into chrome local storage
-    chrome.storage.local.set({
+    chrome.storage.sync.set({
       name_share: name_share,  
       email_share: email_share, 
       address_share: address_share,
@@ -56,7 +56,7 @@ function saveUserPreferences() {
 
   // Get user preferences from storage and display info on form
   function loadUserPreferences() {
-    chrome.storage.local.get({
+    chrome.storage.sync.get({
       name_share: false,  
       email_share: false, 
       address_share: false,

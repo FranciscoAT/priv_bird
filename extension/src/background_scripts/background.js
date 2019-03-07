@@ -102,22 +102,22 @@ function handleP3P(data) {
 function get_share_Data(){
 	var shareData = [];
 	
-	chrome.storage.local.sync.get(['name_share'], function(result) {
+	chrome.storage.sync.get(['name_share'], function(result) {
 		if (result.name_share == true){ shareData[0] = "true"; } 
 		else { shareData[0] = "false"; }
 	});
 	
-	chrome.storage.local.sync.get(['email_share'], function(result) {
+	chrome.storage.sync.get(['email_share'], function(result) {
 		if (result.email_share == true){ shareData[1] = "true"; } 
 		else { shareData[1] = "false"; }
 	});
 	
-	chrome.storage.local.sync.get(['address_share'], function(result) {
+	chrome.storage.sync.get(['address_share'], function(result) {
 		if (result.address_share == true){ shareData[2] = "true"; } 
 		else { shareData[2] = "false"; }
 	});
 	
-	chrome.storage.local.sync.get(['phone_share'], function(result) {
+	chrome.storage.sync.get(['phone_share'], function(result) {
 		if (result.phone_share == true){ shareData[3] = "true"; } 
 		else { shareData[3] = "false"; }
 	});
@@ -130,17 +130,17 @@ function get_share_Data(){
 function get_telmarketing_Data(){
 	var telmarketing_Data = [];
 	  
-	chrome.storage.local.sync.get(['email_telmarketing'], function(result) {
+	chrome.storage.sync.get(['email_telmarketing'], function(result) {
 		if (result.email_telmarketing == true){ telmarketing_Data[0] = "true"; } 
 		else { telmarketing_Data[0] = "false"; }
 	});
 
-	chrome.storage.local.sync.get(['address_telmarketing'], function(result) {
+	chrome.storage.sync.get(['address_telmarketing'], function(result) {
 		if (result.address_telmarketing == true){ telmarketing_Data[1] = "true"; } 
 		else { telmarketing_Data[1] = "false"; }
 	});
 	
-	chrome.storage.local.sync.get(['phone_telmarketing'], function(result) {
+	chrome.storage.sync.get(['phone_telmarketing'], function(result) {
 		if (result.phone_telmarketing == true){ telmarketing_Data[0] = "true"; } 
 		else { telmarketing_Data[1] = "false"; }
 	});
@@ -154,27 +154,27 @@ function get_telmarketing_Data(){
 function get_stored_Data(){
 	var stored_Data = [];
 	  
-	chrome.storage.local.sync.get(['name_stored'], function(result) {
+	chrome.storage.sync.get(['name_stored'], function(result) {
 		if (result.name_stored == true){ stored_Data[0] = "true"; } 
 		else { stored_Data[0] = "false"; }
 	});
 
-	chrome.storage.local.sync.get(['email_stored'], function(result) {
+	chrome.storage.sync.get(['email_stored'], function(result) {
 		if (result.email_stored == true){ stored_Data[0] = "true"; } 
 		else { stored_Data[0] = "false"; }
 	});
 
-	chrome.storage.local.sync.get(['address_stored'], function(result) {
+	chrome.storage.sync.get(['address_stored'], function(result) {
 		if (result.address_stored == true){ stored_Data[0] = "true"; } 
 		else { stored_Data[0] = "false"; }
 	});
 
-	chrome.storage.local.sync.get(['phone_stored'], function(result) {
+	chrome.storage.sync.get(['phone_stored'], function(result) {
 		if (result.phone_stored == true){ stored_Data[0] = "true"; } 
 		else { stored_Data[0] = "false"; }
 	});
 	
-	chrome.storage.local.sync.get(['credit_card_stored'], function(result) {
+	chrome.storage.sync.get(['credit_card_stored'], function(result) {
 		if (result.credit_card_stored == true){ stored_Data[0] = "true"; } 
 		else { stored_Data[0] = "false"; }
 	});
