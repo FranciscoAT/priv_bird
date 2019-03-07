@@ -7,101 +7,79 @@ chrome.runtime.onMessage.addListener((msg, sender, res) => {
 });
 
 
+
+
+/*
+
+    // Commented out for future reference (setBadgeText is useful)
+	// chrome.runtime.onMessage.addListener((msg, sender, res) => {
+	//     if (msg.action === 'alertNumber') {
+	//         console.log(msg);
+	//         chrome.browserAction.setBadgeText({
+	//             text: `${msg.value}`
+	//         });
+	//     }
+	// });
+
+    var name_share = document.getElementById("name_share").checked;
+    var email_share = document.getElementById("email_share").checked;
+    var address_share = document.getElementById("address_share").checked;
+    var phone_share = document.getElementById("phone_share").checked;
+
+    // P3P: use of the collected information - how this information will be used
+    // For our form, it is telemarketing
+    var email_telmarketing= document.getElementById("email_telmarketing").checked;
+    var address_telmarketing = document.getElementById("address_telmarketing").checked;
+    var phone_telmarketing = document.getElementById("phone_telmarketing").checked;
+
+    // P3P: permanancy and visibility - up to max time the user wants the server to store his/her information
+    // P3P: type of information the server stores - which kind/particular of info is collected
+    var name_stored = document.getElementById("name_stored").value;
+    var email_stored = document.getElementById("email_stored").value;
+    var address_stored = document.getElementById("address_stored").value;
+    var phone_stored = document.getElementById("phone_stored").value;
+	
+*/
+
 function handleP3P(data) {
     
-    // 1. Parse to JSON
+    // 1. Parse P3P to JSON
     var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
     var p3p = xmlToJson(xmlDOM);
 
     // 2. Get values in P3P to compare to user pref
-    //console.log(p3p);
     var userData = p3p.POLICIES.POLICY.STATEMENT["DATA-GROUP"].DATA;
-    var collectedData = []
-    var userPreferences = []
-    var test = "empty string"
-
-    for (var i = 0; i < userData.length; i++) {
-       collectedData[i] = userData[i]["@attributes"].ref;
-      console.log(userData[i]["@attributes"].ref); 
-    }
     
-		
-	//remplacer par ce que l'utilisateur a choisi
-	//utilise localStorage pour stocker les donnees
-	chrome.storage.local.get(['name'], function(result) {
-        if (result.name == true){
-        	localStorage.setItem("nameVal", "true");
-        	//localStorage.test = "testvalue";
-        
-        } else {
-        	localStorage.setItem("nameVal", "false");
-        	//localStorage.test = "testvalueFALSE"
-        }
-	});
+	// store the user's preferences into 3 categorical arrays
+	var share_Data = []; // Y/N: user allows info being share info to company
+	var telmarketing_Data = []; // Y/N: user allows info being used for telemarket purposes
+    var stored_Data = []; // int: up to max time the user wants the server to store his/her information
+	
+	// lablel arrays
+	// ex: which index is the value for the "email" in the array share_Data
+	var lbl_share_Data = ["name", "email", "address", "phone"];
+	var lbl_telmarketing_Data = ["email_telmarketing", "address_telmarketing", "phone_telmarketing"];
+	var lbl_stored_Data = ["name_stored", "email_stored", "address_stored", "phone_stored"];
 
-		chrome.storage.local.get(['email'], function(result) {
-	        if (result.email == true){
-	        	localStorage.setItem("emailVal", "true");
-	        } else {
-	        	localStorage.setItem("emailVal", "false");
-	        }
-    	});
+	// initialize 3 arrays
+	share_Data = get_share_Data();
+	telmarketing_Data = get_telmarketing_Data();
+	stored_Data = get_stored_Data();
+	
+	console.log("share_Data len: " + share_Data.length);
+	console.log("share_Data[0] et [1]: " + share_Data[0] + " " + share_Data[1]);
+	console.log("telmarketing_Data len: " + telmarketing_Data.length);
+	console.log("stored_Data len: " + stored_Data.length);
+	
+	
+	// compare to see if the user's preferences matches P3P
+	// compare();
 
-    	chrome.storage.local.get(['addr'], function(result) {
-	        if (result.addr == true){
-	        	localStorage.setItem("addressVal", "true");
-	        } else {
-	        	localStorage.setItem("addressVal", "false");
-	        }
-    	});
-		
-    	chrome.storage.local.get(['phone'], function(result) {
-	        if (result.phone == true){
-	        	localStorage.setItem("phoneVal", "true");
-	        } else {
-	        	localStorage.setItem("phoneVal", "false");
-	        }
-    	});	
-		
-
-
-    //variable that we are going to use to compare
-    //user preferences and P3P policies
-    var name = localStorage.getItem("nameVal");
-    console.log("name: " + name);
-    
-    var email = localStorage.getItem("emailVal");
-    console.log("email: " + email);
-
-    var address = localStorage.getItem("addressVal");
-    console.log("address: " + address);
-
-    var phone = localStorage.getItem("phoneVal");
-    console.log("phone: " + phone);
-
-
-    //no need in local storage because we have the data in the variables
-    localStorage.removeItem("nameVal");
-    localStorage.removeItem("emailVal");
-    localStorage.removeItem("addressVal");
-    localStorage.removeItem("phoneVal");
-
-
-    // Commented out for future reference (setBadgeText is useful)
-// chrome.runtime.onMessage.addListener((msg, sender, res) => {
-//     if (msg.action === 'alertNumber') {
-//         console.log(msg);
-//         chrome.browserAction.setBadgeText({
-//             text: `${msg.value}`
-//         });
-//     }
-// });
-
-
+	
+	
     // 3. Flag
    
    //match => green icone
-
 
    //NOT match, afficher un popup pour demander a l'utilisateur si on peut prendre x donnees
 
@@ -114,111 +92,128 @@ function handleP3P(data) {
 
 
 
-//Does not work as we cannot retrieve data with getters functions
-//sauvegarder les données dans local storage
- function saveData() {
-	if (typeof(Storage) !== "undefined") {
-		
-		//enlever ce qu'il y avait avant
-		localStorage.removeItem("nameVal");
-		localStorage.removeItem("emailVal");
-		localStorage.removeItem("addressVal");
-		localStorage.removeItem("phoneVal");
-		
-		
-		//remplacer par ce que l'utilisateur a choisi
-		//utilise localStorage pour stocker les donnees
-		chrome.storage.local.get(['name'], function(result) {
-	        if (result.name == "true"){
-	        	console.log("TRUE statement");
-	        	localStorage.setItem("nameVal", "mettre valeur ici");
-	        	console.log("TRUE statement");
-	        } else {
-	        	localStorage.setItem("nameVal", "false");
-	        }
-    	});
 
-		chrome.storage.local.get(['email'], function(result) {
-	        if (result.email != "undefined"){
-	        	localStorage.setItem("emailVal", result.email);
-	        } else {
-	        	localStorage.setItem("emailVal", "false");
-	        }
-    	});
+/* 
+	getters to initialize arrays, which are the user's preferences values 
+	that we are going to compare with P3P
+*/
 
-    	chrome.storage.local.get(['address'], function(result) {
-	        if (result.address != "undefined"){
-	        	localStorage.setItem("addressVal", result.address);
-	        } else {
-	        	localStorage.setItem("addressVal", "false");
-	        }
-    	});
-		
-    	chrome.storage.local.get(['phone'], function(result) {
-	        if (result.phone != "undefined"){
-	        	localStorage.setItem("phoneVal", result.phone);
-	        } else {
-	        	localStorage.setItem("phoneVal", "false");
-	        }
-    	});	
-		
-
-	  } else {
-	    document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
-	  }
-	} //fin de la fonction saveData
+//return whether user allows info to be shared 
+function get_share_Data(){
+	var shareData = [];
+	
+	chrome.storage.local.sync.get(['name_share'], function(result) {
+		if (result.name_share == true){ shareData[0] = "true"; } 
+		else { shareData[0] = "false"; }
+	});
+	
+	chrome.storage.local.sync.get(['email_share'], function(result) {
+		if (result.email_share == true){ shareData[1] = "true"; } 
+		else { shareData[1] = "false"; }
+	});
+	
+	chrome.storage.local.sync.get(['address_share'], function(result) {
+		if (result.address_share == true){ shareData[2] = "true"; } 
+		else { shareData[2] = "false"; }
+	});
+	
+	chrome.storage.local.sync.get(['phone_share'], function(result) {
+		if (result.phone_share == true){ shareData[3] = "true"; } 
+		else { shareData[3] = "false"; }
+	});
+	return shareData;
+}
 
 
 
-    //return if user wants to share their name
-	function getName(){
-		return localStorage.getItem("nameVal");
-	}
+//return wether user allows info to be used for telemarketing 
+function get_telmarketing_Data(){
+	var telmarketing_Data = [];
+	  
+	chrome.storage.local.sync.get(['email_telmarketing'], function(result) {
+		if (result.email_telmarketing == true){ telmarketing_Data[0] = "true"; } 
+		else { telmarketing_Data[0] = "false"; }
+	});
 
-    //return if user wants to share their name
-	function getEmail(){
-		return localStorage.getItem("emailVal");
-	}
+	chrome.storage.local.sync.get(['address_telmarketing'], function(result) {
+		if (result.address_telmarketing == true){ telmarketing_Data[1] = "true"; } 
+		else { telmarketing_Data[1] = "false"; }
+	});
+	
+	chrome.storage.local.sync.get(['phone_telmarketing'], function(result) {
+		if (result.phone_telmarketing == true){ telmarketing_Data[0] = "true"; } 
+		else { telmarketing_Data[1] = "false"; }
+	});
+	
+	return telmarketing_Data;
+}
 
-    //return if user wants to share their name
-	function getAddress(){
-		return localStorage.getItem("addressVal");
-	}
 
-    //return if user wants to share their name
-	function getPhone(){
-		return localStorage.getItem("phoneVal");
-	}
+//return max amount of time user agreed to have info stored
+//if value is 0, then user does not want his/her info stored
+function get_stored_Data(){
+	var stored_Data = [];
+	  
+	chrome.storage.local.sync.get(['name_stored'], function(result) {
+		if (result.name_stored == true){ stored_Data[0] = "true"; } 
+		else { stored_Data[0] = "false"; }
+	});
 
-  
-  // --------------------------Ajouter du code pour changer l'icône--------------------------
-  //Modification to icon
-  //Sources: https://developer.chrome.com/extensions/browserAction
-  //https://stackoverflow.com/questions/35852715/changing-chrome-extension-icon
-  function iconColorChange(){
+	chrome.storage.local.sync.get(['email_stored'], function(result) {
+		if (result.email_stored == true){ stored_Data[0] = "true"; } 
+		else { stored_Data[0] = "false"; }
+	});
+
+	chrome.storage.local.sync.get(['address_stored'], function(result) {
+		if (result.address_stored == true){ stored_Data[0] = "true"; } 
+		else { stored_Data[0] = "false"; }
+	});
+
+	chrome.storage.local.sync.get(['phone_stored'], function(result) {
+		if (result.phone_stored == true){ stored_Data[0] = "true"; } 
+		else { stored_Data[0] = "false"; }
+	});
+	
+	chrome.storage.local.sync.get(['credit_card_stored'], function(result) {
+		if (result.credit_card_stored == true){ stored_Data[0] = "true"; } 
+		else { stored_Data[0] = "false"; }
+	});
+
+	return stored_Data;
+}
+
+
+
+
+// --------------------------Ajouter du code pour changer l'icône--------------------------
+//Modification to icon
+//Sources: https://developer.chrome.com/extensions/browserAction
+//https://stackoverflow.com/questions/35852715/changing-chrome-extension-icon
+function iconColorChange(){
 	var status = "vert";
 	chrome.browserAction.setBadgeText( { text: status } );
 	chrome.browserAction.setBadgeBackgroundColor({color: [0,255,0,255]});
-  }
-  
-  
-  //remet l'icône comme avant
-  function iconColorDeChange(){
+}
+
+
+//remet l'icône comme avant
+function iconColorDeChange(){
 	var status = "";
 	chrome.browserAction.setBadgeText( { text: status } );
 	chrome.browserAction.setBadgeBackgroundColor({color: [0,0,0]});
-  }
- 
- 
-  //NE fonctionne pas - code pour un pop up
-  //à moins que popup n'est pas un string mais un fichier html comme dans les exemples?
-  function iconPopUp(){
+}
+
+
+//NE fonctionne pas - code pour un pop up
+//à moins que popup n'est pas un string mais un fichier html comme dans les exemples?
+function iconPopUp(){
 	var msg = "not work";	
 	chrome.browserAction.setBadgeText( { text: msg } );
 	chrome.browserAction.setBadgeBackgroundColor({color: "red"});
-	
+
 	chrome.browserAction.setPopup({popup: "afficher msg"}); //fonctionne pas
-  }
+}
+
 
 
 /* ------------------------------------------------------------------------------------------
