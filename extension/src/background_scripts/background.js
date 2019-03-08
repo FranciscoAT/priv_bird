@@ -59,18 +59,29 @@ function handleP3P(data) {
 	// ex: which index is the value for the "email" in the array share_Data
 	var lbl_share_Data = ["name", "email", "address", "phone"];
 	var lbl_telmarketing_Data = ["email_telmarketing", "address_telmarketing", "phone_telmarketing"];
-	var lbl_stored_Data = ["name_stored", "email_stored", "address_stored", "phone_stored"];
+	var lbl_stored_Data = ["name_share", "email_share", "address_share", "phone_share"];
 
-	// initialize 3 arrays
-	share_Data = get_share_Data();
-	telmarketing_Data = get_telmarketing_Data();
-	stored_Data = get_stored_Data();
+	// initialize 3 arrays	
+	get_share_Data(lbl_stored_Data)
+	.then((data) => {
+		compare(data, p3p);
+	})
+	.catch((err) => {
+		console.log(err);
+	});
+
+
+	// share_Data = get_share_Data();
+	// telmarketing_Data = get_telmarketing_Data();
+	// stored_Data = get_stored_Data();
 	
-	console.log("share_Data len: " + share_Data.length);
-	console.log("share_Data[0] et [1]: " + share_Data[0] + " " + share_Data[1]);
-	console.log("telmarketing_Data len: " + telmarketing_Data.length);
-	console.log("stored_Data len: " + stored_Data.length);
+	// console.log("share_Data len: " + share_Data.length);
+	// console.log("share_Data[0] et [1]: " + share_Data[0] + " " + share_Data[1]);
+	// console.log("telmarketing_Data len: " + telmarketing_Data.length);
+	// console.log("stored_Data len: " + stored_Data.length);
 	
+	// var a = test();
+	// console.log("test: " + a);
 	
 	// compare to see if the user's preferences matches P3P
 	// compare();
@@ -90,7 +101,14 @@ function handleP3P(data) {
     
 } //end of function P3P handle
 
+function compare(data, xmlJSON) {
+	// do something
+}
 
+
+function test(){
+	return "catherine est un stringgggg";
+}
 
 
 /* 
@@ -99,29 +117,45 @@ function handleP3P(data) {
 */
 
 //return whether user allows info to be shared 
-function get_share_Data(){
-	var shareData = [];
-	
-	chrome.storage.sync.get(['name_share'], function(result) {
-		if (result.name_share == true){ shareData[0] = "true"; } 
-		else { shareData[0] = "false"; }
+function get_share_Data(labels, xmlp3p){
+	// Do stuff
+
+
+	return new Promise((resolve, reject) => {
+		chrome.storage.local.get(labels, (data) => {
+			// Maniupulate data before returning
+			resolve(data);
+		});
 	});
+
+	// var shareData = [];
 	
-	chrome.storage.sync.get(['email_share'], function(result) {
-		if (result.email_share == true){ shareData[1] = "true"; } 
-		else { shareData[1] = "false"; }
-	});
+	// chrome.storage.sync.get(['name_share'], function(result) {
+	// 	if (result.name_share == true){ shareData[0] = "true"; 
+	// 	console.log("res: " + result.name_share)
+	// 	console.log("testtt " + shareData[0]);
+		
+	// } 
+	// 	else { shareData[0] = "false"; }
+	// });
 	
-	chrome.storage.sync.get(['address_share'], function(result) {
-		if (result.address_share == true){ shareData[2] = "true"; } 
-		else { shareData[2] = "false"; }
-	});
+	// chrome.storage.sync.get(['email_share'], function(result) {
+	// 	if (result.email_share == true){ shareData[1] = "true"; } 
+	// 	else { shareData[1] = "false"; }
+	// });
 	
-	chrome.storage.sync.get(['phone_share'], function(result) {
-		if (result.phone_share == true){ shareData[3] = "true"; } 
-		else { shareData[3] = "false"; }
-	});
-	return shareData;
+	// chrome.storage.sync.get(['address_share'], function(result) {
+	// 	if (result.address_share == true){ shareData[2] = "true"; } 
+	// 	else { shareData[2] = "false"; }
+	// });
+	
+	// chrome.storage.sync.get(['phone_share'], function(result) {
+	// 	if (result.phone_share == true){ shareData[3] = "true"; } 
+	// 	else { shareData[3] = "false"; }
+	// });
+
+	// console.log("------------share_Data[0] et [1]: " + shareData[0] + " " + shareData[1]);
+	// return shareData;
 }
 
 
