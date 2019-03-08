@@ -27,26 +27,28 @@ function saveUserPreferences() {
 
     // store the user's preference into chrome local storage
     chrome.storage.sync.set({
-      /*name: {
-        share: name_share,
-        store: name_stored
-      },*/
-      name_share: name_share,  
-      email_share: email_share, 
-      address_share: address_share,
-      phone_share: phone_share, 
+      
+      share: {
+        name_share: name_share,  
+        email_share: email_share, 
+        address_share: address_share,
+        phone_share: phone_share
+      },
 
-      email_telmarketing: email_telmarketing,  
-      address_telmarketing: address_telmarketing,  
-      phone_telmarketing: phone_telmarketing,  
+      telmarketing: {
+        email_telmarketing: email_telmarketing,  
+        address_telmarketing: address_telmarketing,  
+        phone_telmarketing: phone_telmarketing
+      },
+
+      stored: {
+        name_stored: name_stored,  
+        email_stored: email_stored,  
+        address_stored: address_stored,  
+        phone_stored: phone_stored, 
+        credit_card_stored: credit_card_stored
+      }
  
-      name_stored: name_stored,  
-      email_stored: email_stored,  
-      address_stored: address_stored,  
-      phone_stored: phone_stored, 
-
-      credit_card_stored: credit_card_stored
-
     }, function() {
       
       var msg = document.getElementById("msg");
@@ -61,38 +63,45 @@ function saveUserPreferences() {
   // Get user preferences from storage and display info on form
   function loadUserPreferences() {
     chrome.storage.sync.get({
-      name_share: false,  
-      email_share: false, 
-      address_share: false,
-      phone_share: false, 
+      
+      share: {
+        name_share: false,  
+        email_share: false, 
+        address_share: false,
+        phone_share: false
+      },
 
-      email_telmarketing: false,  
-      address_telmarketing: false,  
-      phone_telmarketing: false,  
+      telmarketing: {
+        email_telmarketing: false,  
+        address_telmarketing: false,  
+        phone_telmarketing: false
+      },
 
-      name_stored: false,  
-      email_stored: false,  
-      address_stored: false,  
-      phone_stored: false 
-
+      stored: {
+        name_stored: false,  
+        email_stored: false,  
+        address_stored: false,  
+        phone_stored: false, 
+        credit_card_stored: false
+      }
 
     }, function(res) {
-      document.getElementById("name_share").checked = res.name_share;
-      document.getElementById("email_share").checked = res.email_share;
-      document.getElementById("address_share").checked = res.address_share;
-      document.getElementById("phone_share").checked = res.phone_share;
+      document.getElementById("name_share").checked = res.share.name_share;
+      document.getElementById("email_share").checked = res.share.email_share;
+      document.getElementById("address_share").checked = res.share.address_share;
+      document.getElementById("phone_share").checked = res.share.phone_share;
 
 
-      document.getElementById("email_telmarketing").checked = res.email_telmarketing;
-      document.getElementById("address_telmarketing").checked = res.address_telmarketing;
-      document.getElementById("phone_telmarketing").checked = res.phone_telmarketing;
+      document.getElementById("email_telmarketing").checked = res.telmarketing.email_telmarketing;
+      document.getElementById("address_telmarketing").checked = res.telmarketing.address_telmarketing;
+      document.getElementById("phone_telmarketing").checked = res.telmarketing.phone_telmarketing;
 
       
 
-      document.getElementById("name_stored").value = res.name_stored;
-      document.getElementById("email_stored").value = res.email_stored;
-      document.getElementById("address_stored").value = res.address_stored;
-      document.getElementById("phone_stored").value = res.phone_stored;
+      document.getElementById("name_stored").value = res.stored.name_stored;
+      document.getElementById("email_stored").value = res.stored.email_stored;
+      document.getElementById("address_stored").value = res.stored.address_stored;
+      document.getElementById("phone_stored").value = res.stored.phone_stored;
     });
   }
   
