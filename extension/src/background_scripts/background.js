@@ -79,6 +79,7 @@ function compare(data, p3p) {
 	var user_address_option = data.share.address_share; // if user allowed address to be shared
 	var user_phone_option = data.share.phone_share; // if user allowed phone to be shared
 	var attribute_name = ""; // attribute name within the array
+	var stored_value = [];
 
 	// loop through all the shared data attributes
 	for (var i = 0; i < website_share_data.length; i++) {
@@ -87,21 +88,25 @@ function compare(data, p3p) {
    		// if the website requires the name, but the user does not want to share their name
      	if(attribute_name == "user.name." && user_name_option == false){
      		conflict[conflict.length] = "this website must have the authorization to your name"; 
+     		stored_value[stored_value.length] = "name";
      	}
 
      	// if the website requires the email, but the user does not want to share their email
      	else if(attribute_name == "user.online.email" && user_email_option == false){
      		conflict[conflict.length] = "this website must have the authorization to your email"; 
+     		stored_value[stored_value.length] = "email";
      	}
 
      	// if the website requires the address, but the user does not want to share their address
      	else if(attribute_name == "user.online.address" && user_address_option == false){
      		conflict[conflict.length] = "this website must have the authorization to your address"; 
+     		stored_value[stored_value.length] = "address";
      	}
 
      	// if the website requires the phone, but the user does not want to share their phone
      	else if(attribute_name == "user.phonenum.number" && user_phone_option == false){
      		conflict[conflict.length] = "this website must have the authorization to your phone number"; 
+     		stored_value[stored_value.length] = "phone";
      	}
 
 
@@ -115,17 +120,49 @@ function compare(data, p3p) {
 
 	//if the P3P contains <contact> under PURPOSE in their P3P, then they may want to telemarket the user
 	//if the user has not checked the telemarketing option, then add this to the conflict array
-	if ("contact" in website_telemarketing && user_telemarketing_option == false){
+	if (("contact" in website_telemarketing || "telemarketing" in website_telemarketing) && user_telemarketing_option == false){
 		conflict[conflict.length] = "this website must have the authorization to telemarket";
 	}
 
-	
-	// 3. compare the time of the stored info 
-	// QQC AVEC RETENTION?
 
 	
+	// 3. compare the time of the stored info
+	var website_store_data = p3p.POLICIES.POLICY.STATEMENT.RETENTION // JSON PURPOSE object
+	
+	// website stores info for an underminate period of time
+	if ("indefinitly" in website_store_data){
+		conflict[conflict.length] = "this website must have the authorization to store your information for an underminate period of time";
+	}
+	
+	console.log(data.stored.name_stored);
+
+	// website stores info for a maximum time of 6 months
+	if ("stated-purpose" in website_store_data){
+		
+		// go through DATA-GROUP attributes		
+		for (var i = 0; i < stored_value.length; i++) {
+			if (stored_value[i] == "name"){
+				conflict[conflict.length] = "this website must have the authorization to store your name for a maximum time of 6 months";
+			}
+
+			if (stored_value[i] == "email"){
+				conflict[conflict.length] = "this website must have the authorization to store your email for a maximum time of 6 months";
+			}
+			
+			if (stored_value[i] == "address"){
+				conflict[conflict.length] = "this website must have the authorization to store your address for a maximum time of 6 months";
+			}		
+			
+			if (stored_value[i] == "phone"){
+				conflict[conflict.length] = "this website must have the authorization to store your phone for a maximum time of 6 months";
+			}		
+		}
+
+	}
 	
 
+
+	// 4. display green or red icone with the number of conflict
 	// if all user's preferences matched with P3P, display green incone
 	if (conflict.length == 0){
 		// display green icone
