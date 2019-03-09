@@ -75,7 +75,7 @@ This P3P has been inspired and modified from this website: http://www.awardsites
 				-->
 			<PURPOSE>
 				<contact/> 
-				<research/>
+				<telemarketing/>
 				<develop/>
 			</PURPOSE>
 			
@@ -88,11 +88,10 @@ This P3P has been inspired and modified from this website: http://www.awardsites
 			
 			
 			<!-- Retention
-			TODO: cette partie va comparer avec les valeurs de l'utilisateur.
-			En autres mots, le temps maximal que le client veut ses données stockées dans la base de données
+			no-rentention: does not stores data
 			-->
 			<RETENTION>
-				<stated-purpose/>
+				<no-rentention/>
 			</RETENTION>
 			
 			
