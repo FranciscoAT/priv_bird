@@ -42,14 +42,14 @@ function handleP3P(data) {
 	//get the JSON objets and call the compare function
 	get_JSON_Object(lbl_JSON_Objects)
 	.then((data) => {
+		
+		//call function compare where it will check the P3P and the user's preference
+		//based on if there is a conflict, the icone will be green or red
 		compare(data, p3p);
 	})
 	.catch((err) => {
 		console.log(err);
 	});
-
-	
-    // 3. Flag
 
     
 } //end of function P3P handle
@@ -73,33 +73,35 @@ function compare(data, xmlJSON) {
 	var conflict = []; //store all the user's preference that did not match P3P in array
 
 	// compare the shared info
-
+	//IF DATA GROUP contient des données => compare ceux que la compagnie veut ET check si
+	//l'utilisateur a coché la case
+	
 
 	// compare the telemarketing info
+	//IF PURPOSE contient l'attribut contact => la compagnie veut faire du telemarketing
 
-
+	
 	// compare the time of the stored info 
+	// QQC AVEC RETENTION?
 
+	
+	
 
 	// if all user's preferences matched with P3P, display green incone
-
-
-	// if conflict with user's preferences matched with P3P, 
-	// display red icone, number of conflicts, and pop-up
-	// in the pop-up, it is the info in the array conflict
 	if (conflict.length == 0){
-		// green icone
+		// display green icone
 		var conflict_num = "0";
 		chrome.browserAction.setBadgeText( { text: conflict_num } );
 		chrome.browserAction.setBadgeBackgroundColor({color: [0,255,0,255]});
 
+	// else, there is at least one conflict with user's preferences matched with P3P 
 	} else {
-		// display red icone and the number of conflicts
+		// display red icone and the number of conflicts on the badge
 		var conflict_num = conflict.length;	
 		chrome.browserAction.setBadgeText( { text: conflict_num } );
 		chrome.browserAction.setBadgeBackgroundColor({color: "red"});
 
-		// pop-up
+		// pop-up, with the information in the coonflict array
 
 		// ask if the user would like to proceed
 	}
