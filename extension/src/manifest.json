@@ -26,7 +26,9 @@
             "background_scripts/background.js"
         ]
     },
-    "browser_action": {},
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
 
     "options_page": "options.html"
 
