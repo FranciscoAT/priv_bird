@@ -31,18 +31,22 @@ function handleP3P(data) {
     var p3p = xmlToJson(xmlDOM);
     	
 	// lablel arrays of the JSON objects
-	var lbl_JSON_Objects = ["share", "telmarketing", "stored"];
+	var lbl_JSON_Objects = ["share", "telemarketing", "stored"];
 
 	//labels within the main JSON objects
 	var lbl_share_Data = ["name_share", "email_share", "address_share", "phone_share"];
-	var lbl_telmarketing_Data = ["email_telmarketing", "address_telmarketing", "phone_telmarketing"];
 	var lbl_stored_Data = ["name_stored", "email_stored", "address_stored", "phone_stored", "credit_card_stored"];
-
+/*
+		chrome.storage.local.get("telemarketing", (data) => {
+			console.log(data);
+		});
+*/
 
 	//get the JSON objets and call the compare function
-	get_JSON_Object(lbl_JSON_Objects)
+	get_JSON_Object(lbl_JSON_Objects, p3p)
 	.then((data) => {
-		
+		console.log(data);
+		console.log(p3p);
 		//call function compare where it will check the P3P and the user's preference
 		//based on if there is a conflict, the icone will be green or red
 		compare(data, p3p);
@@ -50,13 +54,14 @@ function handleP3P(data) {
 	.catch((err) => {
 		console.log(err);
 	});
+	
 
     
 } //end of function P3P handle
 
 
 //return all the JSON objects stored in chrome storage: share, telmarketing, stored
-function get_JSON_Object(lbl){
+function get_JSON_Object(lbl, p3p){
 
 	return new Promise((resolve, reject) => {
 		chrome.storage.local.get(lbl, (data) => {
@@ -68,7 +73,7 @@ function get_JSON_Object(lbl){
 
 // compare function compares P3P and user's preferences
 // display green or red icone with the number of conficts
-function compare(data, xmlJSON) {
+function compare(data, p3p) {
 	
 	var conflict = []; //store all the user's preference that did not match P3P in array
 
@@ -98,7 +103,7 @@ function compare(data, xmlJSON) {
 	} else {
 		// display red icone and the number of conflicts on the badge
 		var conflict_num = conflict.length;	
-		chrome.browserAction.setBadgeText( { text: conflict_num } );
+		chrome.browserAction.setBadgeText( { text: conflict_num.toString() } );
 		chrome.browserAction.setBadgeBackgroundColor({color: "red"});
 
 		// pop-up, with the information in the coonflict array
