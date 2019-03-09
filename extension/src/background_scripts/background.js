@@ -21,48 +21,26 @@ chrome.runtime.onMessage.addListener((msg, sender, res) => {
 	//     }
 	// });
 
-    var name_share = document.getElementById("name_share").checked;
-    var email_share = document.getElementById("email_share").checked;
-    var address_share = document.getElementById("address_share").checked;
-    var phone_share = document.getElementById("phone_share").checked;
-
-    // P3P: use of the collected information - how this information will be used
-    // For our form, it is telemarketing
-    var email_telmarketing= document.getElementById("email_telmarketing").checked;
-    var address_telmarketing = document.getElementById("address_telmarketing").checked;
-    var phone_telmarketing = document.getElementById("phone_telmarketing").checked;
-
-    // P3P: permanancy and visibility - up to max time the user wants the server to store his/her information
-    // P3P: type of information the server stores - which kind/particular of info is collected
-    var name_stored = document.getElementById("name_stored").value;
-    var email_stored = document.getElementById("email_stored").value;
-    var address_stored = document.getElementById("address_stored").value;
-    var phone_stored = document.getElementById("phone_stored").value;
 	
 */
 
 function handleP3P(data) {
     
-    // 1. Parse P3P to JSON
+    // Parse P3P to JSON
     var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
     var p3p = xmlToJson(xmlDOM);
+    	
+	// lablel arrays of the JSON objects
+	var lbl_JSON_Objects = ["share", "telmarketing", "stored"];
 
-    // 2. Get values in P3P to compare to user pref
-    var userData = p3p.POLICIES.POLICY.STATEMENT["DATA-GROUP"].DATA;
-    
-	// store the user's preferences into 3 categorical arrays
-	var share_Data = []; // Y/N: user allows info being share info to company
-	var telmarketing_Data = []; // Y/N: user allows info being used for telemarket purposes
-    var stored_Data = []; // int: up to max time the user wants the server to store his/her information
-	
-	// lablel arrays
-	// ex: which index is the value for the "email" in the array share_Data
-	var lbl_share_Data = ["name", "email", "address", "phone"];
+	//labels within the main JSON objects
+	var lbl_share_Data = ["name_share", "email_share", "address_share", "phone_share"];
 	var lbl_telmarketing_Data = ["email_telmarketing", "address_telmarketing", "phone_telmarketing"];
-	var lbl_stored_Data = ["name_share", "email_share", "address_share", "phone_share"];
+	var lbl_stored_Data = ["name_stored", "email_stored", "address_stored", "phone_stored", "credit_card_stored"];
 
-	// initialize 3 arrays	
-	get_share_Data(lbl_stored_Data)
+
+	//get the JSON objets and call the compare function
+	get_JSON_Object(lbl_JSON_Objects)
 	.then((data) => {
 		compare(data, p3p);
 	})
@@ -70,153 +48,63 @@ function handleP3P(data) {
 		console.log(err);
 	});
 
-
-	// share_Data = get_share_Data();
-	// telmarketing_Data = get_telmarketing_Data();
-	// stored_Data = get_stored_Data();
-	
-	// console.log("share_Data len: " + share_Data.length);
-	// console.log("share_Data[0] et [1]: " + share_Data[0] + " " + share_Data[1]);
-	// console.log("telmarketing_Data len: " + telmarketing_Data.length);
-	// console.log("stored_Data len: " + stored_Data.length);
-	
-	// var a = test();
-	// console.log("test: " + a);
-	
-	// compare to see if the user's preferences matches P3P
-	// compare();
-
-	
 	
     // 3. Flag
-   
-   //match => green icone
-
-   //NOT match, afficher un popup pour demander a l'utilisateur si on peut prendre x donnees
-
-   //option d'opt out => icone rouge
-
-   //option de changer ses user's preferences
 
     
 } //end of function P3P handle
 
-function compare(data, xmlJSON) {
-	// do something
-}
 
-
-function test(){
-	return "catherine est un stringgggg";
-}
-
-
-/* 
-	getters to initialize arrays, which are the user's preferences values 
-	that we are going to compare with P3P
-*/
-
-//return whether user allows info to be shared 
-function get_share_Data(labels, xmlp3p){
-	// Do stuff
-
+//return all the JSON objects stored in chrome storage: share, telmarketing, stored
+function get_JSON_Object(lbl){
 
 	return new Promise((resolve, reject) => {
-		chrome.storage.local.get(labels, (data) => {
-			// Maniupulate data before returning
+		chrome.storage.local.get(lbl, (data) => {
 			resolve(data);
 		});
 	});
-
-	// var shareData = [];
-	
-	// chrome.storage.sync.get(['name_share'], function(result) {
-	// 	if (result.name_share == true){ shareData[0] = "true"; 
-	// 	console.log("res: " + result.name_share)
-	// 	console.log("testtt " + shareData[0]);
-		
-	// } 
-	// 	else { shareData[0] = "false"; }
-	// });
-	
-	// chrome.storage.sync.get(['email_share'], function(result) {
-	// 	if (result.email_share == true){ shareData[1] = "true"; } 
-	// 	else { shareData[1] = "false"; }
-	// });
-	
-	// chrome.storage.sync.get(['address_share'], function(result) {
-	// 	if (result.address_share == true){ shareData[2] = "true"; } 
-	// 	else { shareData[2] = "false"; }
-	// });
-	
-	// chrome.storage.sync.get(['phone_share'], function(result) {
-	// 	if (result.phone_share == true){ shareData[3] = "true"; } 
-	// 	else { shareData[3] = "false"; }
-	// });
-
-	// console.log("------------share_Data[0] et [1]: " + shareData[0] + " " + shareData[1]);
-	// return shareData;
 }
 
 
-
-//return wether user allows info to be used for telemarketing 
-function get_telmarketing_Data(){
-	var telmarketing_Data = [];
-	  
-	chrome.storage.sync.get(['email_telmarketing'], function(result) {
-		if (result.email_telmarketing == true){ telmarketing_Data[0] = "true"; } 
-		else { telmarketing_Data[0] = "false"; }
-	});
-
-	chrome.storage.sync.get(['address_telmarketing'], function(result) {
-		if (result.address_telmarketing == true){ telmarketing_Data[1] = "true"; } 
-		else { telmarketing_Data[1] = "false"; }
-	});
+// compare function compares P3P and user's preferences
+// display green or red icone with the number of conficts
+function compare(data, xmlJSON) {
 	
-	chrome.storage.sync.get(['phone_telmarketing'], function(result) {
-		if (result.phone_telmarketing == true){ telmarketing_Data[0] = "true"; } 
-		else { telmarketing_Data[1] = "false"; }
-	});
-	
-	return telmarketing_Data;
+	var conflict = []; //store all the user's preference that did not match P3P in array
+
+	// compare the shared info
+
+
+	// compare the telemarketing info
+
+
+	// compare the time of the stored info 
+
+
+	// if all user's preferences matched with P3P, display green incone
+
+
+	// if conflict with user's preferences matched with P3P, 
+	// display red icone, number of conflicts, and pop-up
+	// in the pop-up, it is the info in the array conflict
+	if (conflict.length == 0){
+		// green icone
+		var conflict_num = "0";
+		chrome.browserAction.setBadgeText( { text: conflict_num } );
+		chrome.browserAction.setBadgeBackgroundColor({color: [0,255,0,255]});
+
+	} else {
+		// display red icone and the number of conflicts
+		var conflict_num = conflict.length;	
+		chrome.browserAction.setBadgeText( { text: conflict_num } );
+		chrome.browserAction.setBadgeBackgroundColor({color: "red"});
+
+		// pop-up
+
+		// ask if the user would like to proceed
+	}
+
 }
-
-
-//return max amount of time user agreed to have info stored
-//if value is 0, then user does not want his/her info stored
-function get_stored_Data(){
-	var stored_Data = [];
-	  
-	chrome.storage.sync.get(['name_stored'], function(result) {
-		if (result.name_stored == true){ stored_Data[0] = "true"; } 
-		else { stored_Data[0] = "false"; }
-	});
-
-	chrome.storage.sync.get(['email_stored'], function(result) {
-		if (result.email_stored == true){ stored_Data[0] = "true"; } 
-		else { stored_Data[0] = "false"; }
-	});
-
-	chrome.storage.sync.get(['address_stored'], function(result) {
-		if (result.address_stored == true){ stored_Data[0] = "true"; } 
-		else { stored_Data[0] = "false"; }
-	});
-
-	chrome.storage.sync.get(['phone_stored'], function(result) {
-		if (result.phone_stored == true){ stored_Data[0] = "true"; } 
-		else { stored_Data[0] = "false"; }
-	});
-	
-	chrome.storage.sync.get(['credit_card_stored'], function(result) {
-		if (result.credit_card_stored == true){ stored_Data[0] = "true"; } 
-		else { stored_Data[0] = "false"; }
-	});
-
-	return stored_Data;
-}
-
-
 
 
 // --------------------------Ajouter du code pour changer l'icône--------------------------
