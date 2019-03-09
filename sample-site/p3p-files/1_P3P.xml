@@ -23,6 +23,7 @@ This P3P has been inspired and modified from this website: http://www.awardsites
 	<POLICY name="local3000 P3P policy" discuri="http://www.awardsrus.org/legal.htm" xml:lang="en">
 	
         <!-- Description of the entity making this policy statement. 
+		Entity - information about the company and how can a user get in contact with company
 		Attributes related to the comapny, such as: name, email, company's website, company's name, location (city, country) -->
         <ENTITY>
             <DATA-GROUP>
@@ -36,7 +37,7 @@ This P3P has been inspired and modified from this website: http://www.awardsites
         </ENTITY>
 		
 		
-        <!-- Disclosure -->
+        <!-- Disclosure, location of the human readable policy -->
         <ACCESS>
             <none/>
         </ACCESS>
@@ -68,9 +69,14 @@ This P3P has been inspired and modified from this website: http://www.awardsites
 			</CONSEQUENCE>
 			
 			
-			<!-- The reason this website is collecting the data: telemarketing -->
+			<!-- The reason this website is collecting the data: telemarketing.
+				Conatct means that the company might contact the clients for marketing purposes of their services or products
+				Research and develop based on the gathered info to enhance their services, products, and/or market
+				-->
 			<PURPOSE>
-				<telemarketing/>
+				<contact/> 
+				<research/>
+				<develop/>
 			</PURPOSE>
 			
 			
@@ -90,32 +96,13 @@ This P3P has been inspired and modified from this website: http://www.awardsites
 			</RETENTION>
 			
 			
-			<!-- Base dataschema elements. Collected data type by the website 
-			TODO: figurer la partie pour collectioner les données -->
+			<!-- Base dataschema elements. Website collecting the following data:
+			{name, email, address, phone} -->
 			<DATA-GROUP>
-				<DATA ref="#user.name"/>
-				<DATA ref="#user.home-info.postal.street"/>
-				<DATA ref="#user.home-info.telecom.telephone"/>
-				<DATA ref="#user.home-info.online.email"/>
-				<DATA ref="#dynamic.miscdata">
-				
-				
-				<DATA ref="#dynamic.miscdata">
-					<CATEGORIES>
-						<navigation/>
-					</CATEGORIES>
-				</DATA>
-				<DATA ref="#dynamic.miscdata">
-					<CATEGORIES>
-						<computer/>
-					</CATEGORIES>
-				</DATA>
-				<DATA ref="#dynamic.miscdata">
-					<CATEGORIES>
-						<interactive/>
-					</CATEGORIES>
-				</DATA>
-				
+				<DATA name="user.name." type="personname." category="physical"/>
+				<DATA name="user.online.email" type="text" category="online"/>
+				<DATA name="user.online.address" type="text" category="physical"/>
+				<DATA name="user.phonenum.number" type="number" category="physical"/>	
 			</DATA-GROUP>
             
 		</STATEMENT>
