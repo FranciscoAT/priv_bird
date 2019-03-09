@@ -36,17 +36,11 @@ function handleP3P(data) {
 	//labels within the main JSON objects
 	var lbl_share_Data = ["name_share", "email_share", "address_share", "phone_share"];
 	var lbl_stored_Data = ["name_stored", "email_stored", "address_stored", "phone_stored", "credit_card_stored"];
-/*
-		chrome.storage.local.get("telemarketing", (data) => {
-			console.log(data);
-		});
-*/
+
 
 	//get the JSON objets and call the compare function
 	get_JSON_Object(lbl_JSON_Objects, p3p)
 	.then((data) => {
-		console.log(data);
-		console.log(p3p);
 		//call function compare where it will check the P3P and the user's preference
 		//based on if there is a conflict, the icone will be green or red
 		compare(data, p3p);
@@ -55,9 +49,9 @@ function handleP3P(data) {
 		console.log(err);
 	});
 	
-
-    
+ 
 } //end of function P3P handle
+
 
 
 //return all the JSON objects stored in chrome storage: share, telmarketing, stored
@@ -71,22 +65,62 @@ function get_JSON_Object(lbl, p3p){
 }
 
 
+
 // compare function compares P3P and user's preferences
 // display green or red icone with the number of conficts
 function compare(data, p3p) {
-	
+	console.log(p3p);
 	var conflict = []; //store all the user's preference that did not match P3P in array
 
-	// compare the shared info
-	//IF DATA GROUP contient des données => compare ceux que la compagnie veut ET check si
-	//l'utilisateur a coché la case
-	
+	// 1. compare the shared info
+	var website_share_data = p3p.POLICIES.POLICY.STATEMENT["DATA-GROUP"].DATA; // JSON PURPOSE object
+	var user_name_option = data.share.name_share; // if user allowed name to be shared
+	var user_email_option = data.share.email_share; // if user allowed email to be shared
+	var user_address_option = data.share.address_share; // if user allowed address to be shared
+	var user_phone_option = data.share.phone_share; // if user allowed phone to be shared
+	var attribute_name = ""; // attribute name within the array
 
-	// compare the telemarketing info
-	//IF PURPOSE contient l'attribut contact => la compagnie veut faire du telemarketing
+	// loop through all the shared data attributes
+	for (var i = 0; i < website_share_data.length; i++) {
+   		attribute_name = website_share_data[i]["@attributes"].name;
+     	
+   		// if the website requires the name, but the user does not want to share their name
+     	if(attribute_name == "user.name." && user_name_option == false){
+     		conflict[conflict.length] = "this website must have the authorization to your name"; 
+     	}
+
+     	// if the website requires the email, but the user does not want to share their email
+     	else if(attribute_name == "user.online.email" && user_email_option == false){
+     		conflict[conflict.length] = "this website must have the authorization to your email"; 
+     	}
+
+     	// if the website requires the address, but the user does not want to share their address
+     	else if(attribute_name == "user.online.address" && user_address_option == false){
+     		conflict[conflict.length] = "this website must have the authorization to your address"; 
+     	}
+
+     	// if the website requires the phone, but the user does not want to share their phone
+     	else if(attribute_name == "user.phonenum.number" && user_phone_option == false){
+     		conflict[conflict.length] = "this website must have the authorization to your phone number"; 
+     	}
+
+
+    }
+
+
+
+	// 2. compare the telemarketing info
+	var website_telemarketing = p3p.POLICIES.POLICY.STATEMENT.PURPOSE; // JSON PURPOSE object
+	var user_telemarketing_option = data.telemarketing; // user's telemarketing preferences
+
+	//if the P3P contains <contact> under PURPOSE in their P3P, then they may want to telemarket the user
+	//if the user has not checked the telemarketing option, then add this to the conflict array
+	if ("contact" in website_telemarketing && user_telemarketing_option == false){
+		conflict[conflict.length] = "this website must have the authorization to telemarket";
+	}
 
 	
-	// compare the time of the stored info 
+	// 3. compare the time of the stored info 
 	// QQC AVEC RETENTION?
 
 	
@@ -107,10 +141,18 @@ function compare(data, p3p) {
 		chrome.browserAction.setBadgeBackgroundColor({color: "red"});
 
 		// pop-up, with the information in the coonflict array
+		print(conflict);
 
 		// ask if the user would like to proceed
 	}
 
+} // end of the compare function
+
+
+function print(arr){
+	for (var i = 0; i < arr.length; i++) {
+		console.log(arr[i]);
+	}
 }
 
 
