@@ -11,9 +11,7 @@ function saveUserPreferences() {
 
     // P3P: use of the collected information - how this information will be used
     // For our form, it is telemarketing
-    var email_telmarketing= document.getElementById("email_telmarketing").checked;
-    var address_telmarketing = document.getElementById("address_telmarketing").checked;
-    var phone_telmarketing = document.getElementById("phone_telmarketing").checked;
+    var telemarketing= document.getElementById("telemarketing").checked;
 
     // P3P: permanancy and visibility - up to max time the user wants the server to store his/her information
     // P3P: type of information the server stores - which kind/particular of info is collected
@@ -21,7 +19,6 @@ function saveUserPreferences() {
     var email_stored = document.getElementById("email_stored").value;
     var address_stored = document.getElementById("address_stored").value;
     var phone_stored = document.getElementById("phone_stored").value;
-    
     var credit_card_stored = document.getElementById("credit_card_stored").value;
 
 
@@ -35,11 +32,7 @@ function saveUserPreferences() {
         phone_share: phone_share
       },
 
-      telmarketing: {
-        email_telmarketing: email_telmarketing,  
-        address_telmarketing: address_telmarketing,  
-        phone_telmarketing: phone_telmarketing
-      },
+      telemarketing: telemarketing,
 
       stored: {
         name_stored: name_stored,  
@@ -71,11 +64,7 @@ function saveUserPreferences() {
         phone_share: false
       },
 
-      telmarketing: {
-        email_telmarketing: false,  
-        address_telmarketing: false,  
-        phone_telmarketing: false
-      },
+      telemarketing: false,
 
       stored: {
         name_stored: false,  
@@ -91,13 +80,8 @@ function saveUserPreferences() {
       document.getElementById("address_share").checked = res.share.address_share;
       document.getElementById("phone_share").checked = res.share.phone_share;
 
-
-      document.getElementById("email_telmarketing").checked = res.telmarketing.email_telmarketing;
-      document.getElementById("address_telmarketing").checked = res.telmarketing.address_telmarketing;
-      document.getElementById("phone_telmarketing").checked = res.telmarketing.phone_telmarketing;
-
-      
-
+      document.getElementById("telemarketing").checked = res.telemarketing;
+	  
       document.getElementById("name_stored").value = res.stored.name_stored;
       document.getElementById("email_stored").value = res.stored.email_stored;
       document.getElementById("address_stored").value = res.stored.address_stored;
