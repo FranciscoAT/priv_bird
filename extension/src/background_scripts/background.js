@@ -138,30 +138,39 @@ function compare(data, p3p) {
 
 	// website stores info for a maximum time of 6 months
 	if ("stated-purpose" in website_store_data){
+		var user_name_value = data.stored.name_stored; // if user allowed name to be stored up to a max time
+		var user_email_value = data.stored.email_stored; // if user allowed email to be stored up to a max time
+		var user_address_value = data.stored.address_stored; // if user allowed address to be stored up to a max time
+		var user_phone_value = data.stored.phone_stored; // if user allowed phone to bbe stored up to a max time
+		var user_credit_card = data.stored.credit_card_stored;
 		
 		// go through DATA-GROUP attributes		
 		for (var i = 0; i < stored_value.length; i++) {
-			if (stored_value[i] == "name"){
+
+			if (stored_value[i] == "name" && (user_name_value<6 || user_name_value == "")){
 				conflict[conflict.length] = "this website must have the authorization to store your name for a maximum time of 6 months";
 			}
 
-			if (stored_value[i] == "email"){
+			if (stored_value[i] == "email" && (user_email_value<6 || user_email_value == "")){
 				conflict[conflict.length] = "this website must have the authorization to store your email for a maximum time of 6 months";
 			}
 			
-			if (stored_value[i] == "address"){
+			if (stored_value[i] == "address" && (user_address_value<6 || user_address_value == "")){
 				conflict[conflict.length] = "this website must have the authorization to store your address for a maximum time of 6 months";
 			}		
 			
-			if (stored_value[i] == "phone"){
+			if (stored_value[i] == "phone" && (user_phone_value<6 || user_phone_value == "")){
 				conflict[conflict.length] = "this website must have the authorization to store your phone for a maximum time of 6 months";
 			}		
 		}
 
+		if (user_credit_card<6 || user_credit_card == ""){
+			conflict[conflict.length] = "this website must have the authorization to store your credit card number for a maximum time of 6 months";
+		}		
+
 	}
 	
-
-
+	
 	// 4. display green or red icone with the number of conflict
 	// if all user's preferences matched with P3P, display green incone
 	if (conflict.length == 0){
