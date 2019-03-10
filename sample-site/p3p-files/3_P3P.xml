@@ -86,7 +86,7 @@ This P3P has been inspired and modified from this website: http://www.awardsites
 			state-purpose: for this website, the data is stored at most up to 6 months
 			-->
 			<RETENTION>
-				<state-purpose/>
+				<stated-purpose/>
 			</RETENTION>
 			
 			
