@@ -9,6 +9,8 @@ chrome.runtime.onMessage.addListener((msg, sender, res) => {
 	if (msg.action === 'p3pData') {
 		res(false);
 		handleP3P(msg.value);
+	} else if (msg.action === 'getConflicts') {
+		res(conflicts);
 	}
 });
 
@@ -67,7 +69,7 @@ function updateBadge() {
 	let numErrors = conflicts["errors"].length;
 
 	if (numWarnings != 0) {
-		badgeColor = 'yellow';
+		badgeColor = 'rgb(192, 173, 0)';
 		numConflicts += numWarnings;
 	}
 

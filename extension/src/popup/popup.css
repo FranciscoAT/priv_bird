@@ -1,0 +1,20 @@
+.do-not-break {
+    white-space: nowrap;
+}
+
+.center {
+    text-align: center;
+}
+
+.red-text {
+    color: red;
+}
+
+.yellow-text {
+    color: rgb(192, 173, 0);
+}
+
+.header-row {
+    font-size: 1.1em;
+    text-transform: uppercase;
+}
