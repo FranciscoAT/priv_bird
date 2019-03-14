@@ -6,24 +6,6 @@ chrome.runtime.onMessage.addListener((msg, sender, res) => {
     }
 });
 
-
-
-
-/*
-
-    // Commented out for future reference (setBadgeText is useful)
-	// chrome.runtime.onMessage.addListener((msg, sender, res) => {
-	//     if (msg.action === 'alertNumber') {
-	//         console.log(msg);
-	//         chrome.browserAction.setBadgeText({
-	//             text: `${msg.value}`
-	//         });
-	//     }
-	// });
-
-	
-*/
-
 function handleP3P(data) {
     
     // Parse P3P to JSON

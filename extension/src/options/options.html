@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>User Preferences - Privacy Bird</title>
+</head>
+
+<body>
+	<div>
+		<p>You can modify your privacy settings on when to alert you that there is a conflict.</p>
+		<p>
+			You can modify your "Retention" levels which include the following values:
+			<ul>
+				<li>No Retention: This will alert you if the website retains the data for any longer than neccessary
+				</li>
+				<li>Legal Retention: This will alert you if the website retains data for longer than legally required
+				</li>
+				<li>Any Retentions: This option means you do not care how long your data is retained and we will never
+					alert you</li>
+			</ul>
+		</p>
+		<p>
+			You can modify whether or not you want your data shared. By ticking the box "Share Information" we will NOT
+			alert you
+			if the data is shared
+		</p>
+	</div>
+
+	<hr>
+
+
+	<div>
+		<p>
+			<strong>General Information</strong>
+			(This would include fields such as: name, age, email, address)
+		</p>
+
+		<p>Share Information: <input type="checkbox" id="share-data-general" name="share-data-general"></p>
+		<p>Retention Length: <select id="retention-general" name="retention-general"></select></p>
+	</div>
+
+	<div>
+		<p>
+			<strong>Critical Information</strong>
+			(This would include fields such as: credit card)
+		</p>
+
+		<p>Retention Length: <select id="retention-critical" name="retention-critical"></select></p>
+	</div>
+
+	<div><button id="save-preferences">Save</button></div>
+	<div id="msg"></div>
+
+</body>
+
+<footer>
+	<script src="../third-party/jquery-3.3.1.min.js"></script>
+	<script src="options.js"></script>
+</footer>
+
+</html>

@@ -4,7 +4,7 @@
     "description": "Privacy Bird Extension",
     "manifest_version": 2,
     "permissions": [
-        "<all_urls>", 
+        "<all_urls>",
         "storage"
     ],
     "content_scripts": [
@@ -27,9 +27,7 @@
         ]
     },
     "browser_action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup/popup.html"
     },
-
-    "options_page": "options.html"
-
+    "options_page": "options/options.html"
 }
