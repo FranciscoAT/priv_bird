@@ -85,7 +85,7 @@ function updateBadge() {
 	}
 
 	if (numConflicts == 0) {
-		numConflicts  = '\u2713';
+		numConflicts = '\u2713';
 	}
 
 	setBadgeTextColor(badgeColor, `${numConflicts}`);

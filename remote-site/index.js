@@ -23,17 +23,6 @@ app.post('/getpkey', (req, res) => {
     }
 });
 
-app.post('/deny', (req, res) => {
-    accept = false;
-    res('Now rejecting key requests.');
-});
-
-app.post('/accept', (req, res) => {
-    accept = true;
-    res('Now accepting key requests.')
-});
-
-
 app.listen(port, (err) => {
     if (err) {
         return console.log("Someting went wrong.", err);

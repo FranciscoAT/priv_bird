@@ -71,6 +71,10 @@ app.post('/form', (req, res) => {
     });
 });
 
+app.get('/privacypolicy', (req, res) => {
+    res.sendFile(`${__dirname}/privacypolicy.html`);
+});
+
 app.listen(port, (err) => {
     if (err) {
         return console.log("Something went wrong.", err);
@@ -91,7 +95,7 @@ function parseInput(data) {
 function decrypt(data) {
     if (!'encMsg' in data) {
         return data;
-    } 
+    }
 
     let dec_data = ibe.decrypt(sec_key, data);
     return JSON.parse(dec_data);
@@ -102,9 +106,11 @@ function updateKeys(p3pFile) {
 
     request.post(
         'http://localhost:3030/getpkey',
-        { form: {
-            xml: xml
-        }},
+        {
+            form: {
+                xml: xml
+            }
+        },
         (err, httpres, body) => {
             body = JSON.parse(body);
             sec_key = body.pkey;

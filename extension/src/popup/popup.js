@@ -17,16 +17,36 @@ $('document').ready(() => {
     }
 
     function onLoad() {
-        getConflicts()
-            .then((conflicts) => {
-                writeConflicts(conflicts);
+        getCurrentURL()
+            .then((url) => {
+                getConflicts()
+                    .then((conflicts) => {
+                        writeConflicts(conflicts, url);
+                    })
+                    .catch((err) => {
+                        writeError(err);
+                    });
             })
-            .catch((err) => {
-                writeError(err);
+            .catch(() => {
+                writeError("Not on localhost:3000");
             });
     }
 
-    function writeConflicts(conflicts) {
+    function getCurrentURL() {
+        return new Promise((res, rej) => {
+            let query = { active: true, currentWindow: true };
+            chrome.tabs.query(query, (results) => {
+                if (results.length == 0) {
+                    rej();
+                } else if (!(results[0].url).includes('localhost:3000')) {
+                    rej();
+                }
+                res(results[0].url);
+            });
+        });
+    }
+
+    function writeConflicts(conflicts, url) {
         let errors = conflicts['errors'];
         let warnings = conflicts['warnings'];
         $conflictsDiv.text();
@@ -51,6 +71,14 @@ $('document').ready(() => {
             }
         }
 
+
+        let baseURL = /^https?:\/\/[^\/]+/i.exec(url)[0];
+        let p3pURL = getLink('Raw P3P', `${baseURL}/p3p.xml`);
+        let readablep3pURL = getLink(`Readable P3P`, `${baseURL}/privacypolicy`);
+
+        textRows.push('<hr>');
+        textRows.push(getTextRow(`${readablep3pURL} | ${p3pURL}`));
+
         for (let i = 0; i < textRows.length; i++) {
             $conflictsDiv.append(textRows[i]);
         }
@@ -73,6 +101,10 @@ $('document').ready(() => {
         }
 
         return `<p class="${classes}">${text}</p>`;
+    }
+
+    function getLink(text, url) {
+        return `<a href=${url}>${text}</a>`;
     }
 
     onLoad();

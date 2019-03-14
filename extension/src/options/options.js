@@ -53,7 +53,7 @@ $('document').ready(() => {
             }
             newValues[inputId] = newValue;
         });
-        
+
         chrome.storage.local.set(newValues, () => {
             $msgDiv.text("Preferences have been saved.");
             setTimeout(() => {

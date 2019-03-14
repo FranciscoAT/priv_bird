@@ -1,9 +1,9 @@
 <h3 id="currentlySelected">{{currentp3p}}</h3>
 <form id="newp3pform" action="/" method="post">
     Select a new P3P Document from the dropdown:
-    <select id="newp3pfile" name="newp3pfile" >
+    <select id="newp3pfile" name="newp3pfile">
         {{#each p3pFiles}}
-            <option value="{{this}}">{{this}}</option>
+        <option value="{{this}}">{{this}}</option>
         {{/each}}
     </select>
     <br>
