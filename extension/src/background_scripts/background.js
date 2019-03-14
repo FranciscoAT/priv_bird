@@ -45,6 +45,12 @@ function getLocalChromeValues(valuesToGetArr) {
 }
 
 function compare(values, p3p) {
+	// Reset the current conflicts
+	conflicts = {
+		"warnings": [],
+		"errors": []
+	};
+
 	console.log(values);
 
 	/**
