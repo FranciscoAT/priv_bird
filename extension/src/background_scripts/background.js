@@ -1,5 +1,8 @@
 // Global Variables
-let conflicts = [];
+let conflicts = {
+	"warnings": [],
+	"errors": []
+};
 
 // Message Handler
 chrome.runtime.onMessage.addListener((msg, sender, res) => {
@@ -41,7 +44,6 @@ function getLocalChromeValues(valuesToGetArr) {
 }
 
 function compare(values, p3p) {
-	conflicts = [];
 	console.log(values);
 
 	/**
