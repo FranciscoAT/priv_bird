@@ -56,6 +56,31 @@ function compare(values, p3p) {
 	 *     any-retention (never alert essentially)
 	 * Simply add to the conflicts variable in the compare function, the popup will grab this so do not worry :)
 	 */
+
+	updateBadge();
+}
+
+function updateBadge() {
+	let badgeColor = 'green';
+	let numConflicts = 0;
+	let numWarnings = conflicts["warnings"].length;
+	let numErrors = conflicts["errors"].length;
+
+	if (numWarnings != 0) {
+		badgeColor = 'yellow';
+		numConflicts += numWarnings;
+	}
+
+	if (numErrors != 0) {
+		badgeColor = 'red';
+		numConflicts += numErrors;
+	}
+
+	if (numConflicts == 0) {
+		numConflicts  = '\u2713';
+	}
+
+	setBadgeTextColor(badgeColor, `${numConflicts}`);
 }
 
 function setBadgeTextColor(color, text) {
