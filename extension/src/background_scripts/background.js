@@ -24,8 +24,7 @@ function handleP3P(data) {
 			compare(values, p3p);
 		})
 		.catch((err) => {
-			console.log(err);
-			console.log('Using defaults');
+			console.log('Using defaults', err);
 			compare(defaultValues, p3p);
 		});
 }
