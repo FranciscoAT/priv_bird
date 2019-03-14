@@ -52,6 +52,10 @@ $('document').ready(() => {
         $conflictsDiv.text();
         let textRows = [];
 
+        let baseURL = /^https?:\/\/[^\/]+/i.exec(url)[0];
+        let p3pURL = getLink('Raw P3P', `${baseURL}/p3p.xml`);
+        let readablep3pURL = getLink(`Readable P3P`, `${baseURL}/privacypolicy`);
+
         if (errors.length == 0 && warnings.length == 0) {
             textRows.push(getTextRow('No Errors or Warnings!'));
             textRows.push(getTextRow('Happy Browsing!'));
@@ -60,24 +64,21 @@ $('document').ready(() => {
         if (errors.length != 0) {
             textRows.push(getHeaderRow('Conflicts', 'red'));
             for (let i = 0; i < errors.length; i++) {
-                textRows.push(getTextRow(errors[i]));
+                textRows.push(getlistItem(errors[i]));
             }
         }
 
         if (warnings.length != 0) {
             textRows.push(getHeaderRow('Warnings', 'yellow'));
+            textRows.push(getTextRow('The following <strong>may</strong> conflict with your preferences.', 'center no-bottom-margin')); 
+            textRows.push(getTextRow(`Please read the ${readablep3pURL}.`, 'center no-top-margin'));
             for (let i = 0; i < warnings.length; i++) {
-                textRows.push(getTextRow(warnings[i]));
+                textRows.push(getlistItem(warnings[i]));
             }
         }
 
-
-        let baseURL = /^https?:\/\/[^\/]+/i.exec(url)[0];
-        let p3pURL = getLink('Raw P3P', `${baseURL}/p3p.xml`);
-        let readablep3pURL = getLink(`Readable P3P`, `${baseURL}/privacypolicy`);
-
         textRows.push('<hr>');
-        textRows.push(getTextRow(`${readablep3pURL} | ${p3pURL}`));
+        textRows.push(getTextRow(`${readablep3pURL} | ${p3pURL}`, 'center'));
 
         for (let i = 0; i < textRows.length; i++) {
             $conflictsDiv.append(textRows[i]);
@@ -88,8 +89,12 @@ $('document').ready(() => {
         $conflictsDiv.text(`Something went wrong: ${err}`);
     }
 
-    function getTextRow(text) {
-        return `<p class="do-not-break">${text}</p>`;
+    function getTextRow(text, additionalClasses = '') {
+        return `<p class="do-not-break ${additionalClasses}">${text}</p>`;
+    }
+
+    function getlistItem(text) {
+        return `<li class="do-not-break">${text}</li>`
     }
 
     function getHeaderRow(text, colorClass) {
@@ -106,6 +111,13 @@ $('document').ready(() => {
     function getLink(text, url) {
         return `<a href=${url}>${text}</a>`;
     }
+
+    $(document).on('click', 'a', (e) => {
+        e.preventDefault();
+        let targetURL = e.target.href;
+
+        chrome.tabs.update({ active: true, url: targetURL });
+    });
 
     onLoad();
 });
