@@ -2,10 +2,6 @@ $('document').ready(() => {
     var $saveBtn = $('#save-preferences');
     var $msgDiv = $('#msg');
 
-    const doNotShareNames = ['share-data-general'];
-    const retentionNames = ['retention-general', 'retention-critical'];
-    const fullNamesArr = doNotShareNames.concat(retentionNames);
-
     function getValues() {
         return new Promise((res, rej) => {
             chrome.storage.local.get(fullNamesArr, (result) => {

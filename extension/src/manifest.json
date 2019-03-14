@@ -23,6 +23,8 @@
     "background": {
         "scripts": [
             "third-party/jquery-3.3.1.min.js",
+            "lib_scripts/xml-to-json.js",
+            "lib_scripts/dataConstants.js",
             "background_scripts/background.js"
         ]
     },
