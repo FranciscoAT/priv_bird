@@ -1,131 +1,156 @@
-<!--Test P3P policy for obtaining personal data submitted in a form (making purchases)-->
+<!-- 
+
+This P3P mentiones if the website collects the following information:
+	- the type of information collected
+	- how the information is used (purpose element)
+	- who has access to the information (recipient element)
+	- how long the info will be stored (retention element)
+
+This P3P has been inspired and modified from this website: http://www.awardsites.com/tutorials/w3c/p3p_privacy-01.htm
+
+-->
 <POLICIES
-	xmlns="http://www.w3.org/2002/01/P3Pv1"
-	xmlns:p3p11="http://www.w3.org/2006/01/P3Pv11">
-	<POLICY name="formP3P"  
-	   discuri="http://localhost:3000/privacypolicy.html" 
-   xml:lang="en">
-		<!-- Contact information of site creating this policy-->
-		<ENTITY>
-			<EXTENSION>
-				<p3p11:data-group>
-					<p3p11:datatype>
-						<p3p11:business>
-							<p3p11:orgname>University of Ottawa</p3p11:orgname>
-							<p3p11:contact-info>
-								<p3p11:postal>
-									<p3p11:street>75 Laurier Ave E</p3p11:street>
-									<p3p11:city>Ottawa</p3p11:city>
-									<p3p11:province>ON</p3p11:province>
-									<p3p11:postalcode>K1N 6N5</p3p11:postalcode>
-									<p3p11:country>Canada</p3p11:country>
-								</p3p11:postal>
-								<p3p11:online>
-									<p3p11:email>test@uottawa.com</p3p11:email>
-								</p3p11:online>
-							</p3p11:contact-info>
-						</p3p11:business>
-					</p3p11:datatype>
-				</p3p11:data-group>
-			</EXTENSION>
-
-		<DATA-GROUP>
-			<DATA ref="#business.name">University of Ottawa</DATA>
-			<DATA ref="#business.contact-info.postal.street">75 Laurier Ave E</DATA>
-			<DATA ref="#business.contact-info.postal.city">Ottawa</DATA>
-			<DATA ref="#business.contact-info.postal.stateprov">ON</DATA>
-			<DATA ref="#business.contact-info.postal.postalcode">K1N 6N5</DATA>
-			<DATA ref="#business.contact-info.postal.country">Canada</DATA>
-			<DATA ref="#business.contact-info.online.email">test@uottawa.com</DATA>
-		</DATA-GROUP>
-
-		</ENTITY>
+    xmlns="http://www.w3.org/2002/01/P3Pv1">
+    
+	<!-- Expiry information for this policy using the absolute expiry time-->
+    <EXPIRY date="Wednesday, 01 Jan 2020 12:00:00 GMT"/>
+    
+	
+	<!-- POLICY attributes:
+		- name: name of this policy, which applies to the local3000 website, 
+		- discuri: location of the full text of the privacy policy is available on the web at: xxxx
+		-->
+	<POLICY name="local3000 P3P policy" discuri="http://www.awardsrus.org/legal.htm" xml:lang="en">
+	
+        <!-- Description of the entity making this policy statement. 
+		Entity - information about the company and how can a user get in contact with company
+		Attributes related to the comapny, such as: name, email, company's website, company's name, location (city, country) -->
+        <ENTITY>
+            <DATA-GROUP>
+                <DATA ref="#business.name">Awards 'R Us</DATA>
+                <DATA ref="#business.contact-info.online.email">admin@awardsrus.org</DATA>
+                <DATA ref="#business.contact-info.online.uri">http://www.awardsrus.org</DATA>
+                <DATA ref="#business.contact-info.postal.organization">Organization Name</DATA>
+                <DATA ref="#business.contact-info.postal.city">Ottawa</DATA>
+                <DATA ref="#business.contact-info.postal.country">Canada</DATA>
+            </DATA-GROUP>
+        </ENTITY>
 		
-		<!-- Disclosure -->
-		<ACCESS>
-			<contact-and-other/>
-		</ACCESS>
-
-	<!-- Dispute - the entity offers or acknowledges the following ways for a user to resolve disputes about the entity's privacy practices or alleged protocol violations.-->
-	<DISPUTES-GROUP>
-      <DISPUTES resolution-type="independent" 
-       service="http://localhost:3000"
-       short-description="http://localhost:3000">
-        />
-
-	<!-- Remedies -->
-        <REMEDIES><correct/></REMEDIES> <!-- We will correct any errors we make related to the commitments in our privacy policy -->
-      </DISPUTES>
-    </DISPUTES-GROUP>
-
-	<!-- Statement for user data-->
-		<STATEMENT>
-			<!-- A short summary or explanation of the data practices described in the STATEMENT that can be shown to a human user. -->
+		
+        <!-- Disclosure, location of the human readable policy -->
+        <ACCESS>
+            <none/>
+        </ACCESS>
+		
+		
+        <!-- Disputes -->
+        <DISPUTES-GROUP>
+            <DISPUTES resolution-type="law" service="http://europa.eu.int/comm/internal_market/privacy/law_en.htm#directive" short-description="Directive 95/46/EC ">
+                <LONG-DESCRIPTION>Published in Official Journal L 281 , 23/11/1995 P. 0031 - 0050: "Directive 95/46/EC of the European Parliament and of the Council of 24 October 1995 on the protection of individuals with regard to the processing of personal data and on the free movement of such data."
+				</LONG-DESCRIPTION>
+                
+				<REMEDIES>
+                    <law/>
+				</REMEDIES>
+            
+			</DISPUTES>
+        </DISPUTES-GROUP>
+		
+		
+        <!-- Statement for the clients purchasing items from website -->
+        <STATEMENT>
+            <EXTENSION optional="yes">
+                <GROUP-INFO xmlns="http://www.software.ibm.com/P3P/editor/extension-1.0.html" name="Anonymous Visitors"/>
+            </EXTENSION>
+                
+			<!-- Consequence - explanation of the collected data -->
 			<CONSEQUENCE>
-			We collect name and contact information for online purchases.
+				This data, available through standard web server logs, is collected for statistical purposes. This allow us to improve our information delivery by customizing our pages to best serve the majority of our visitors.
 			</CONSEQUENCE>
-
-			<!-- contains one or more purposes of data collection or uses of data. -->
+			
+			
+			<!-- The reason this website is collecting the data: telemarketing.
+				Conatct means that the company might contact the clients for marketing purposes of their services or products
+				Research and develop based on the gathered info to enhance their services, products, and/or market
+				-->
 			<PURPOSE>
-				<current/> <!-- Completion and Support of Activity For Which Data Was Provided: 
-				Information may be used by the service provider to complete the activity for which it was provided, 
-				whether a one-time activity such as returning the results from a Web search, forwarding an email message, or placing an order; 
-				or a recurring activity such as providing a subscription service, or allowing access to an online address book or electronic wallet. -->
+				<contact/> 
+				<telemarketing/>
+				<develop/>
 			</PURPOSE>
+			
+			
+			<!-- Recipients, who receives the info, which is the company.
+				This means that the user's preference has agreed to share their information -->
 			<RECIPIENT>
-				<ours/> <!-- only ourselves and our agents -->
-				<delivery/> <!-- delivery services following different practice-->
+				<ours/>
 			</RECIPIENT>
+			
+			
+			<!-- Retention
+			no-rentention: does not stores data
+			-->
 			<RETENTION>
-				<stated-purpose/> <!-- For the stated purpose: Information is retained to meet the stated purpose. 
-				This requires information to be discarded at the earliest time possible. Sites MUST have a retention policy that establishes a destruction time table. 
-				The retention policy MUST be included in or linked from the site's human-readable privacy policy.-->
+				<legal-requirement/>
 			</RETENTION>
-
-			<EXTENSION>
-				<p3p11:data-group>
-				<p3p11:datatype>
-					<p3p11:user>
-					<p3p11:name/>
-					<p3p11:home-info>
-						<p3p11:postal/>
-						<p3p11:telecom>
-						<p3p11:telephone/>
-						</p3p11:telecom>
-						<p3p11:online>
-						<p3p11:email/>
-						</p3p11:online>
-					</p3p11:home-info>
-					</p3p11:user>
-					<p3p11:dynamic>
-					<p3p11:miscdata>
-						<p3p11:category>
-						<p3p11:purchase/>
-						</p3p11:category>
-					</p3p11:miscdata>
-					</p3p11:dynamic>
-				</p3p11:datatype>
-				</p3p11:data-group>
-			</EXTENSION>
-
-			<!-- at least one DATA-GROUP element that contains one or more datatype extension elements. datatype extension elements are used to describe the type of data that a site collects-->
+			
+			
+			<!-- Base dataschema elements. Website collecting the following data:
+			{name, email, address, phone} -->
 			<DATA-GROUP>
-			<DATA ref="#user.name"/>
-				<DATA ref="#user.home-info.postal.street"/>
-				<DATA ref="#user.home-info.telecom.telephone"/>
-				<DATA ref="#user.home-info.online.email"/>
-				<DATA ref="#dynamic.miscdata">
-
-			<!-- Categories are elements inside data elements that provide hints to users and user agents as to the intended uses of the data. -->
-				<CATEGORIES>
-				<physical/> <!-- Information that allows an individual to be contacted or located in the physical world - such as telephone number or address.-->
-				<online/> <!-- Information that allows an individual to be contacted or located on the Internet - such as email.-->
-				<purchase/> <!-- Information actively generated by the purchase of a product or service, including information about the method of payment.-->
-				</CATEGORIES>
-			</DATA>
+				<DATA name="user.name." type="personname." category="physical"/>
+				<DATA name="user.online.email" type="text" category="online"/>
+				<DATA name="user.online.address" type="text" category="physical"/>
+				<DATA name="user.phonenum.number" type="number" category="physical"/>	
 			</DATA-GROUP>
-			</STATEMENT>
-		</POLICY> <!-- end of policy-->
-	</POLICIES>
-
-
+            
+		</STATEMENT>
+		
+		
+		
+		
+		<STATEMENT>
+            <EXTENSION optional="yes">
+                <GROUP-INFO xmlns="http://www.software.ibm.com/P3P/editor/extension-1.0.html" name="Anonymous Visitors"/>
+            </EXTENSION>
+                
+			<!-- Consequence - explanation of the collected data -->
+			<CONSEQUENCE>
+				This data, available through standard web server logs, is collected for statistical purposes. This allow us to improve our information delivery by customizing our pages to best serve the majority of our visitors.
+			</CONSEQUENCE>
+			
+			
+			<!-- The reason this website is collecting the data: telemarketing.
+				Conatct means that the company might contact the clients for marketing purposes of their services or products
+				Research and develop based on the gathered info to enhance their services, products, and/or market
+				-->
+			<PURPOSE>
+				<develop/>
+			</PURPOSE>
+			
+			
+			<!-- Recipients, who receives the info, which is the company.
+				This means that the user's preference has agreed to share their information -->
+			<RECIPIENT>
+				<ours/>
+			</RECIPIENT>
+			
+			
+			<!-- Retention - unknown time
+			-->
+			<RETENTION>
+				<no-rentention/>
+			</RETENTION>
+			
+			
+			<!-- Base dataschema elements. Website collecting the following data:
+			{name, email, address, phone} -->
+			<DATA-GROUP>
+				<DATA name="Card.ExpDate" type="number" category="financial"/>	
+			</DATA-GROUP>
+            
+		</STATEMENT>
+	
+	<!-- End of policy -->
+	</POLICY>
+</POLICIES>
