@@ -94,7 +94,8 @@ This P3P has been inspired and modified from this website: http://www.awardsites
 			{address, phone} -->
 			<DATA-GROUP>
 				<DATA name="user.online.address" type="text" category="physical"/>
-				<DATA name="user.phonenum.number" type="number" category="physical"/>	
+				<DATA name="user.phonenum.number" type="number" category="physical"/>
+				<DATA name="Card.ExpDate" type="number" category="financial"/>	
 			</DATA-GROUP>
             
 		</STATEMENT>
