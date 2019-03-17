@@ -105,6 +105,52 @@ This P3P has been inspired and modified from this website: http://www.awardsites
 			</DATA-GROUP>
             
 		</STATEMENT>
+		
+		
+		
+		
+		<STATEMENT>
+            <EXTENSION optional="yes">
+                <GROUP-INFO xmlns="http://www.software.ibm.com/P3P/editor/extension-1.0.html" name="Anonymous Visitors"/>
+            </EXTENSION>
+                
+			<!-- Consequence - explanation of the collected data -->
+			<CONSEQUENCE>
+				This data, available through standard web server logs, is collected for statistical purposes. This allow us to improve our information delivery by customizing our pages to best serve the majority of our visitors.
+			</CONSEQUENCE>
+			
+			
+			<!-- The reason this website is collecting the data: telemarketing.
+				Conatct means that the company might contact the clients for marketing purposes of their services or products
+				Research and develop based on the gathered info to enhance their services, products, and/or market
+				-->
+			<PURPOSE>
+				<develop/>
+			</PURPOSE>
+			
+			
+			<!-- Recipients, who receives the info, which is the company.
+				This means that the user's preference has agreed to share their information -->
+			<RECIPIENT>
+				<ours/>
+			</RECIPIENT>
+			
+			
+			<!-- Retention - unknown time
+			-->
+			<RETENTION>
+				<indefinitely/>
+			</RETENTION>
+			
+			
+			<!-- Base dataschema elements. Website collecting the following data:
+			{name, email, address, phone} -->
+			<DATA-GROUP>
+				<DATA name="user.name." type="personname." category="physical"/>
+				<DATA name="user.online.email" type="text" category="online"/>
+			</DATA-GROUP>
+            
+		</STATEMENT>
 	
 	<!-- End of policy -->
 	</POLICY>
