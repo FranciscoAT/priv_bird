@@ -109,8 +109,8 @@ function compareStatement(data, statement) {
 
 
     //1 - user preference: share checkbox (info may be shared)
-    if (share_checkbox == true && website_statement_data.length > 0) {
-        conflicts.errors[conflicts["errors"].length] = "info will be shared";
+    if (share_checkbox == false && website_statement_data.length > 0) {
+        conflicts.errors.push("General information will be shared");
     }
 
 
@@ -119,17 +119,17 @@ function compareStatement(data, statement) {
 
         // the website will store the user's information
         if (general_retention == "no-retention" && !("no-retention" in website_retention)) {
-            conflicts.errors[conflicts["errors"].length] = "general info will be stored";
+            conflicts.errors.push("General information will be stored");
         }
 
         //store info for more than a period of time
         if (general_retention == "legal-retention" && ("legal-requirement" in website_retention)) {
-            conflicts.warnings[conflicts["warnings"].length] = "general info may be stored longer than legally required";
+            conflicts.warnings.push("General information may be stored longer than needed");
         }
 
         //store info for more than a period of time
         if (general_retention == "legal-retention" && ("indefinitely" in website_retention)) {
-            conflicts.errors[conflicts["errors"].length] = "general info will be stored for indeterminate period of time";
+            conflicts.errors.push("General information will be stored for an indeterminate period of time");
         }
     }
 
@@ -138,17 +138,17 @@ function compareStatement(data, statement) {
 
         // the website will store the user's information
         if (critical_rentention == "no-retention" && !("no-retention" in website_retention)) {
-            conflicts.errors[conflicts["errors"].length] = "critical info will be stored";
+            conflicts.errors.push("Critical information will be stored");
         }
 
         //store info for more than a period of time
         if (critical_rentention == "legal-retention" && ("legal-requirement" in website_retention)) {
-            conflicts.warnings[conflicts["warnings"].length] = "critical info may be stored longer than legally required";
+            conflicts.warnings.push("Critical information may be stored longer than needed");
         }
 
         //store info for more than a period of time
         if (critical_rentention == "legal-retention" && ("indefinitely" in website_retention)) {
-            conflicts.errors[conflicts["errors"].length] = "critical info will be stored for indeterminate period of time";
+            conflicts.errors.push("Critical information will be stored for an indeterminate period of time");
         }
     }
 }
