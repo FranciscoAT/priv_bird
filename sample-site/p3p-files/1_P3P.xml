@@ -146,8 +146,7 @@ This P3P has been inspired and modified from this website: http://www.awardsites
 			<!-- Base dataschema elements. Website collecting the following data:
 			{name, email, address, phone} -->
 			<DATA-GROUP>
-				<DATA name="user.name." type="personname." category="physical"/>
-				<DATA name="user.online.email" type="text" category="online"/>
+				<DATA name="Card.ExpDate" type="number" category="financial"/>	
 			</DATA-GROUP>
             
 		</STATEMENT>
