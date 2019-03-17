@@ -196,7 +196,7 @@ function compareStatement(data, statement){
 		}
 
 		//store info for more than a period of time
-		if(general_retention == "legal-retention" && ("legal-retention" in website_retention)){
+		if(general_retention == "legal-retention" && ("legal-requirement" in website_retention)){
 			conflicts.warnings[conflicts["warnings"].length] = "general info may be stored longer than legally required";
 		}
 
@@ -215,7 +215,7 @@ function compareStatement(data, statement){
 		}
 
 		//store info for more than a period of time
-		if(critical_rentention == "legal-retention" && ("legal-retention" in website_retention)){
+		if(critical_rentention == "legal-retention" && ("legal-requirement" in website_retention)){
 			conflicts.warnings[conflicts["warnings"].length] = "critical info may be stored longer than legally required";
 		}
 
