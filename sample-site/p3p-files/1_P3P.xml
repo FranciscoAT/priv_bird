@@ -1,156 +1,82 @@
-<!-- 
-
-This P3P mentiones if the website collects the following information:
-	- the type of information collected
-	- how the information is used (purpose element)
-	- who has access to the information (recipient element)
-	- how long the info will be stored (retention element)
-
-This P3P has been inspired and modified from this website: http://www.awardsites.com/tutorials/w3c/p3p_privacy-01.htm
-
--->
-<POLICIES
-    xmlns="http://www.w3.org/2002/01/P3Pv1">
-    
-	<!-- Expiry information for this policy using the absolute expiry time-->
-    <EXPIRY date="Wednesday, 01 Jan 2020 12:00:00 GMT"/>
-    
+<?xml version="1.0"?>
+<POLICIES xmlns="http://www.w3.org/2002/01/P3Pv1" xmlns:p3p11="http://www.w3.org/2006/01/P3Pv11" xmlns:pe="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17">
+	<EXPIRY max-age="86400"/>
+	<POLICY name="pe:temporary" discuri="http://www.example.com/hi.html">
 	
-	<!-- POLICY attributes:
-		- name: name of this policy, which applies to the local3000 website, 
-		- discuri: location of the full text of the privacy policy is available on the web at: xxxx
-		-->
-	<POLICY name="local3000 P3P policy" discuri="http://www.awardsrus.org/legal.htm" xml:lang="en">
-	
-        <!-- Description of the entity making this policy statement. 
-		Entity - information about the company and how can a user get in contact with company
-		Attributes related to the comapny, such as: name, email, company's website, company's name, location (city, country) -->
-        <ENTITY>
-            <DATA-GROUP>
-                <DATA ref="#business.name">Awards 'R Us</DATA>
-                <DATA ref="#business.contact-info.online.email">admin@awardsrus.org</DATA>
-                <DATA ref="#business.contact-info.online.uri">http://www.awardsrus.org</DATA>
-                <DATA ref="#business.contact-info.postal.organization">Organization Name</DATA>
-                <DATA ref="#business.contact-info.postal.city">Ottawa</DATA>
-                <DATA ref="#business.contact-info.postal.country">Canada</DATA>
-            </DATA-GROUP>
-        </ENTITY>
-		
-		
-        <!-- Disclosure, location of the human readable policy -->
-        <ACCESS>
-            <none/>
-        </ACCESS>
-		
-		
-        <!-- Disputes -->
-        <DISPUTES-GROUP>
-            <DISPUTES resolution-type="law" service="http://europa.eu.int/comm/internal_market/privacy/law_en.htm#directive" short-description="Directive 95/46/EC ">
-                <LONG-DESCRIPTION>Published in Official Journal L 281 , 23/11/1995 P. 0031 - 0050: "Directive 95/46/EC of the European Parliament and of the Council of 24 October 1995 on the protection of individuals with regard to the processing of personal data and on the free movement of such data."
-				</LONG-DESCRIPTION>
-                
-				<REMEDIES>
-                    <law/>
-				</REMEDIES>
-            
-			</DISPUTES>
-        </DISPUTES-GROUP>
-		
-		
-        <!-- Statement for the clients purchasing items from website -->
-        <STATEMENT>
-            <EXTENSION optional="yes">
-                <GROUP-INFO xmlns="http://www.software.ibm.com/P3P/editor/extension-1.0.html" name="Anonymous Visitors"/>
-            </EXTENSION>
-                
-			<!-- Consequence - explanation of the collected data -->
-			<CONSEQUENCE>
-				This data, available through standard web server logs, is collected for statistical purposes. This allow us to improve our information delivery by customizing our pages to best serve the majority of our visitors.
-			</CONSEQUENCE>
-			
-			
-			<!-- The reason this website is collecting the data: telemarketing.
-				Conatct means that the company might contact the clients for marketing purposes of their services or products
-				Research and develop based on the gathered info to enhance their services, products, and/or market
-				-->
-			<PURPOSE>
-				<contact/> 
-				<telemarketing/>
-				<develop/>
-			</PURPOSE>
-			
-			
-			<!-- Recipients, who receives the info, which is the company.
-				This means that the user's preference has agreed to share their information -->
-			<RECIPIENT>
-				<ours/>
-			</RECIPIENT>
-			
-			
-			<!-- Retention
-			no-rentention: does not stores data
-			-->
-			<RETENTION>
-				<no-rentention/>
-			</RETENTION>
-			
-			
-			<!-- Base dataschema elements. Website collecting the following data:
-			{name, email, address, phone} -->
+		<ENTITY xmlns="">
 			<DATA-GROUP>
-				<DATA name="user.name." type="personname." category="physical"/>
-				<DATA name="user.online.email" type="text" category="online"/>
-				<DATA name="user.online.address" type="text" category="physical"/>
-				<DATA name="user.phonenum.number" type="number" category="physical"/>	
+				<DATA ref="#business.name">Demo 'R Us</DATA>
+				<DATA ref="#business.contact-info.online.email">admin@demorus.org</DATA>
+				<DATA ref="#business.contact-info.online.uri">http://www.demorus.org</DATA>
+				<DATA ref="#business.contact-info.postal.organization">Organization Name</DATA>
+				<DATA ref="#business.contact-info.postal.city">Ottawa</DATA>
+				<DATA ref="#business.contact-info.postal.country">Canada</DATA>
 			</DATA-GROUP>
-            
-		</STATEMENT>
+		</ENTITY>
 		
-		
-		
+		<ACCESS>
+			<none/>
+		</ACCESS>
+		<DISPUTES-GROUP>
+			<DISPUTES resolution-type="independent" service="http://www.PrivacySeal.example.org" short-description="PrivacySeal.example.org">
+				<IMG src="http://www.PrivacySeal.example.org/Logo.gif" alt="PrivacySeal's logo"/>
+				<REMEDIES>
+					<correct/>
+				</REMEDIES>
+			</DISPUTES>
+			
+			<DISPUTES resolution-type="service" service="http://www.sample.example.com/privacy.html" short-description="Sample Example Customer Service">
+				<LONG-DESCRIPTION>
+					If you have any questions or concerns about our privacy policy please email privacy@sample.example.com or call 1-877-EXAMPLE.
+				</LONG-DESCRIPTION>
+			</DISPUTES>
+			
+			<DISPUTES resolution-type="court" service="http://www.bbbonline.org" short-description="BBBOnline">
+				<LONG-DESCRIPTION>
+					BBBOnline Privacy Program
+				</LONG-DESCRIPTION>
+				<IMG src="http://www.bbbonline.com/privacy/images/privacy.gif" alt="BBBOnline Privacy Seal"/>
+			</DISPUTES>
+		</DISPUTES-GROUP>
 		
 		<STATEMENT>
-            <EXTENSION optional="yes">
-                <GROUP-INFO xmlns="http://www.software.ibm.com/P3P/editor/extension-1.0.html" name="Anonymous Visitors"/>
-            </EXTENSION>
-                
-			<!-- Consequence - explanation of the collected data -->
-			<CONSEQUENCE>
-				This data, available through standard web server logs, is collected for statistical purposes. This allow us to improve our information delivery by customizing our pages to best serve the majority of our visitors.
-			</CONSEQUENCE>
-			
-			
-			<!-- The reason this website is collecting the data: telemarketing.
-				Conatct means that the company might contact the clients for marketing purposes of their services or products
-				Research and develop based on the gathered info to enhance their services, products, and/or market
-				-->
 			<PURPOSE>
-				<develop/>
+				<telemarketing/>
+				<contact/>
 			</PURPOSE>
-			
-			
-			<!-- Recipients, who receives the info, which is the company.
-				This means that the user's preference has agreed to share their information -->
 			<RECIPIENT>
 				<ours/>
 			</RECIPIENT>
-			
-			
-			<!-- Retention - unknown time
-			-->
 			<RETENTION>
 				<indefinitely/>
 			</RETENTION>
-			
-			
-			<!-- Base dataschema elements. Website collecting the following data:
-			{name, email, address, phone} -->
+			<CONSEQUENCE>
+      			We collect contact information for telemarketing purposes.
+			</CONSEQUENCE>
 			<DATA-GROUP>
-				<DATA name="Card.ExpDate" type="number" category="financial"/>	
+				<DATA ref="#user.name">
+					<CATEGORIES>
+						<physical/>
+						<demographic/>
+					</CATEGORIES>
+				</DATA>
+				<DATA ref="#user.home-info.postal.street">
+					<CATEGORIES>
+						<physical/>
+					</CATEGORIES>
+				</DATA>
+				<DATA ref="#user.home-info.telecom.telephone">
+					<CATEGORIES>
+						<physical/>
+					</CATEGORIES>
+				</DATA>
+				<DATA ref="#user.home-info.online.email">
+					<CATEGORIES>
+						<online/>
+					</CATEGORIES>
+				</DATA>
 			</DATA-GROUP>
-            
 		</STATEMENT>
-	
-	<!-- End of policy -->
+		
 	</POLICY>
 </POLICIES>
