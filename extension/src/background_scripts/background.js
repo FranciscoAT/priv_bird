@@ -1,8 +1,23 @@
-// Global Variables
+/* 
+Global Variables, where
+	conflicts: will let us know whether to display green, yellow, or red badge
+	p3p_data: will let us know which data is in the p3p, then we can compare with the user preferences values
+*/
+
 let conflicts = {
     "warnings": [],
     "errors": []
 };
+
+let p3p_data = {
+    "user_info": false,
+    "financial_info": false,
+    "computer_info": false,
+    "retention": false,
+    "telemarketing": false
+};
+
+
 
 // Message Handler
 chrome.runtime.onMessage.addListener((msg, sender, res) => {
@@ -64,7 +79,6 @@ function compare(data, p3p) {
 
         //go through each statement
         for (var i = 0; i < statement.length; i++) {
-            console.log(i);
             compareStatement(data, statement[i]);
         }
     }
@@ -76,131 +90,139 @@ function compare(data, p3p) {
         compareStatement(data, statement);
     }
 
+    badge_values(data);
     updateBadge();
 }
 
 
 
-
-
 //compare one statement at time --------------------------------------------------------------
 function compareStatement(data, statement) {
-    //user preferences variables
-    var share_checkbox = data["share-data-general"]; // if user allowed info to be shared
-    var general_retention = data["retention-general"]; // retention for general info
-    var critical_rentention = data["retention-critical"]; // rentention for critical info
+
+   	/* 1. if website stores data longer than required
+   		retention = "legal-requirement" OR "indefinitely", then we want to warn user
+   	*/
+   	//if more than one purpose, loop through all of them
+   	var retention = statement.RETENTION;
+   	if (p3p_data.retention == false){
+   	   	if (Array.isArray(retention)) {
+		    for (var i = 0; i < retention.length; i++) {
+		    	if ("legal-requirement" in retention[i] || "indefinitely" in retention[i]){
+		    		p3p_data.retention = true;
+		    	}
+	        }
+    	} else {
+			if ("legal-requirement" in retention || "indefinitely" in retention){
+				p3p_data.retention = true;
+			}
+    	}		
+   	}
 
 
-    //P3P variables
-    //var website_statement_data = p3p.POLICIES.POLICY.STATEMENT["DATA-GROUP"].DATA;
-    //var website_retention = p3p.POLICIES.POLICY.STATEMENT.RETENTION; 
-    var website_statement_data = statement["DATA-GROUP"].DATA;
-    var website_retention = statement.RETENTION;
 
-    console.log("website_statement_data");
-    console.log(website_statement_data);
-
-    //valeurs calculées
-    var num_critical_data = totCriticalInfoStored(website_statement_data);
-    var num_general_data = totGeneralInfoStored(website_statement_data);
-
-    console.log("num_critical_data: " + num_critical_data)
-    console.log("num_general_data: " + num_general_data)
-
-
-    //1 - user preference: share checkbox (info may be shared)
-    if (share_checkbox == false && website_statement_data.length > 0) {
-        conflicts.errors.push("General information will be shared");
-    }
+   	/* 2. if purpose is going to related to telemarketing, where
+   		purpose = "conctact" OR "telemarketing", then we want to warn user
+   	*/
+   	var purpose = statement.PURPOSE;
+   	if (p3p_data.telemarketing == false){
+	   	if (Array.isArray(purpose)) {
+	        for (var i = 0; i < purpose.length; i++) {
+		    	if ("contact" in purpose[i] || "telemarketing" in purpose[i]){
+		    		p3p_data.telemarketing = true;
+		    	}
+	        }
+	    } else {
+	    	if ("contact" in purpose || "telemarketing" in purpose){
+	    		p3p_data.telemarketing = true;
+	    	}
+	    }	
+   	}
 
 
-    //2 - user preference: retention-general
-    if (num_general_data > 0) {
 
-        // the website will store the user's information
-        if (general_retention == "no-retention" && !("no-retention" in website_retention)) {
-            conflicts.errors.push("General information will be stored");
-        }
+    /* 3. go through all the data and check categories */
+    var data = statement["DATA-GROUP"].DATA;
+   	if (p3p_data.user_info == false || p3p_data.financial_info == false || p3p_data.computer_info == false){
+	   	if (Array.isArray(data)) {
+	        for (var i = 0; i < data.length; i++) {
+	        	check_categories(data[i]);
+	        }
+	    } else {
+	    	check_categories(data);
+	    }	
+   	}
 
-        //store info for more than a period of time
-        if (general_retention == "legal-retention" && ("legal-requirement" in website_retention)) {
-            conflicts.warnings.push("General information may be stored longer than needed");
-        }
-
-        //store info for more than a period of time
-        if (general_retention == "legal-retention" && ("indefinitely" in website_retention)) {
-            conflicts.errors.push("General information will be stored for an indeterminate period of time");
-        }
-    }
-
-    //3 - user preference: retention-critical
-    if (num_critical_data > 0) {
-
-        // the website will store the user's information
-        if (critical_rentention == "no-retention" && !("no-retention" in website_retention)) {
-            conflicts.errors.push("Critical information will be stored");
-        }
-
-        //store info for more than a period of time
-        if (critical_rentention == "legal-retention" && ("legal-requirement" in website_retention)) {
-            conflicts.warnings.push("Critical information may be stored longer than needed");
-        }
-
-        //store info for more than a period of time
-        if (critical_rentention == "legal-retention" && ("indefinitely" in website_retention)) {
-            conflicts.errors.push("Critical information will be stored for an indeterminate period of time");
-        }
-    }
 }
 
-function totCriticalInfoStored(website_statement_data) {
 
-    var counter = 0;
+function check_categories(data) {
 
-    if (Array.isArray(website_statement_data)) {
+    var category = data.CATEGORIES;
+
+    console.log(category);
+
+    if (Array.isArray(category)) {
+
+
         //loop through each attribute and check if the category
-        for (var i = 0; i < website_statement_data.length; i++) {
-            attribute_category = website_statement_data[i]["@attributes"].category;
-            console.log("loop ");
-            if (attribute_category == "financial") {
-                counter = counter + 1;
+        for (var i = 0; i < category.length; i++) {
+
+            if ("physical" in category[i] || "online" in category[i] || "demographic" in category[i]) {
+            	p3p_data.user_info = true;
             }
+
+            if ("financial" in category[i] || "purchase" in category[i]) {
+            	p3p_data.financial_info = true;
+            }
+
+             if ("computer" in category[i]) {
+            	p3p_data.computer_info = true;
+            }
+
+          
         }
 
     } else {
-        attribute_category = website_statement_data["@attributes"].category;
-        if (attribute_category == "financial") {
-            counter = counter + 1;
-        }
-    }
 
-    return counter;
+        if ("physical" in category || "online" in category || "demographic" in category) {
+        	p3p_data.user_info = true;
+        }
+
+        if ("financial" in category || "purchase" in category) {
+        	p3p_data.financial_info = true;
+        }
+
+         if ("computer" in category) {
+        	p3p_data.computer_info = true;
+        }
+        
+    }
 }
 
 
-function totGeneralInfoStored(website_statement_data) {
 
-    var counter = 0;
+function badge_values(data){
+	console.log(p3p_data);
+	if (data["share-user-info"]==false && p3p_data.user_info == true){
+		conflicts.errors.push("User information will be shared");
+	}
 
-    if (Array.isArray(website_statement_data)) {
-        //loop through each attribute and check if the category
-        for (var i = 0; i < website_statement_data.length; i++) {
-            attribute_category = website_statement_data[i]["@attributes"].category;
-            if (attribute_category != "financial") {
-                counter = counter + 1;
-            }
-        }
+	if (data["share-financial-info"]==false && p3p_data.financial_info == true){
+		conflicts.errors.push("Financial information will be shared");
+	}
 
-    } else {
-        attribute_category = website_statement_data["@attributes"].category;
-        if (attribute_category != "financial") {
-            counter = counter + 1;
-        }
-    }
+	if (data["share-cpu-info"]==false && p3p_data.computer_info == true){
+		conflicts.errors.push("Computer information will be shared");
+	}
 
-    return counter;
+	if (data["retention"]==true && p3p_data.retention == true){
+		conflicts.warnings.push("Data may be stored longer than needed");
+	}
+
+	if (data["telemarketing"]==true && p3p_data.telemarketing == true){
+		conflicts.warnings.push("Information may be used for telemarketing purposes");
+	}
 }
-
 
 
 function updateBadge() {
