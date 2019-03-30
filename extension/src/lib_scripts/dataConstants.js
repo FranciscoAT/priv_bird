@@ -1,9 +1,10 @@
-const doNotShareNames = ['share-data-general'];
-const retentionNames = ['retention-general', 'retention-critical'];
-const fullNamesArr = doNotShareNames.concat(retentionNames);
+const fullNamesArr = ['share-user-info', 'share-financial-info', 'share-cpu-info', 'retention', 'telemarketing'];
 
 const defaultValues = {
-    'share-data-general': false,
-    'retention-general': 'legal-retention',
-    'retention-critical': 'legal-retention'
+    'share-user-info': false,
+    'share-financial-info': false,
+    'share-cpu-info': false,
+    'retention': false,
+    'telemarketing': false
+    
 };
