@@ -13,9 +13,9 @@ $('document').ready(() => {
         });
     }
 
+    // 
     function onLoad() {
-        setComboBoxes();
-
+        // get full names array
         getValues()
             .then((values) => {
                 loadValues(values);
@@ -25,32 +25,16 @@ $('document').ready(() => {
             });
     }
 
-    function setComboBoxes() {
-        let options = [
-            "No Retention",
-            "Legal Retention",
-            "Any Retention"
-        ];
 
-        retentionNames.map((selectId) => {
-            let $selectInput = $(`#${selectId}`);
-            options.map((optionName) => {
-                let optiondVal = optionName.toLowerCase().replace(' ', '-');
-                $selectInput.append(new Option(optionName, optiondVal));
-            });
-        });
-    }
+
+
 
     function setValues(values) {
         let newValues = {};
         fullNamesArr.map((inputId) => {
             let $inputId = $(`#${inputId}`);
             let newValue;
-            if (inputId.includes('share')) {
-                newValue = $inputId.is(':checked');
-            } else {
-                newValue = $inputId.val();
-            }
+            newValue = $inputId.is(':checked');
             newValues[inputId] = newValue;
         });
 
@@ -62,14 +46,14 @@ $('document').ready(() => {
         });
         alertMessageSave();
     }
-
+    // iterate thru name array
     function loadValues(values) {
         fullNamesArr.map((inputId) => {
-            let $inputId = $(`#${inputId}`);
-            if (inputId.includes('share') && values['share-data-general']) {
+
+            //if true statement has been saved, then check box
+            let $inputId = $(`#${inputId}`); 
+            if (values[inputId] == true) {
                 $inputId.prop('checked', true);
-            } else {
-                $inputId.val(values[inputId]);
             }
         });
     }
