@@ -64,12 +64,21 @@ function getLocalChromeValues(valuesToGetArr) {
 //data: objet JSON (tous les valeurs dans local storage)
 //p3p: converti fichier XML a un objet JSON
 function compare(data, p3p) {
-    // Reset the current conflicts
+	//console.log(p3p);
+
+    // Reset the current conflicts and p3p values
     conflicts = {
         "warnings": [],
         "errors": []
     };
 
+    p3p_data = {
+	    "user_info": false,
+	    "financial_info": false,
+	    "computer_info": false,
+	    "retention": false,
+	    "telemarketing": false
+    };
 
     //P3P variables
     var statement = p3p.POLICIES.POLICY.STATEMENT;
@@ -159,8 +168,6 @@ function check_categories(data) {
 
     var category = data.CATEGORIES;
 
-    console.log(category);
-
     if (Array.isArray(category)) {
 
 
@@ -202,7 +209,7 @@ function check_categories(data) {
 
 
 function badge_values(data){
-	console.log(p3p_data);
+	//console.log(p3p_data);
 	if (data["share-user-info"]==false && p3p_data.user_info == true){
 		conflicts.errors.push("User information will be shared");
 	}
