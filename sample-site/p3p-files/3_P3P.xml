@@ -53,8 +53,17 @@
       			We collect contact and computer information for online purchases.
 			</CONSEQUENCE>
 			<DATA-GROUP>
-				<DATA ref="#user.name"/>
-				<DATA ref="#user.home-info.postal.street"/>
+				<DATA ref="#user.name">
+					<CATEGORIES>
+						<physical/>
+						<demographic/>
+					</CATEGORIES>
+				</DATA>
+				<DATA ref="#user.home-info.postal.street">
+					<CATEGORIES>
+						<physical/>
+					</CATEGORIES>
+				</DATA>
 				<DATA ref="#user.home-info.telecom.telephone">
 					<CATEGORIES>
 						<physical/>
