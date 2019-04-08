@@ -1,12 +1,19 @@
+/**
+ * This file will intercept any outgoing form requests and encrypt outgoing data using IBE
+ */
+
 $(document).ready(() => {
 
+    // Check if on localhost:3000
     if (checkURL()) {
         return;
     }
 
+    // Create new IBE object
     const IBE = require('ibejs');
     let ibe = new IBE();
 
+    // Hook onto any form submit and encrypt outgoing data
     $('form').on('submit', (e) => {
         // ignore this hook if no p3p
         if (!hasp3p) {

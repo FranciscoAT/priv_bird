@@ -1,3 +1,10 @@
+/**
+ * Converts an XML string file into a JSON object
+ * Credit: https://gist.github.com/chinchang/8106a82c56ad007e27b1
+ * @param {String} xml XML file
+ * @returns {Object}
+ */
+
 function xmlToJson(xml) {
 
 	// Create the return object

@@ -1,7 +1,14 @@
+/**
+ * Javascript file for options. Provides save/load functionality
+ */
+
 $('document').ready(() => {
     var $saveBtn = $('#save-preferences');
     var $msgDiv = $('#msg');
 
+    /**
+     * Gets the saved values
+     */
     function getValues() {
         return new Promise((res, rej) => {
             chrome.storage.local.get(fullNamesArr, (result) => {
@@ -13,7 +20,9 @@ $('document').ready(() => {
         });
     }
 
-    // 
+    /**
+     * Wrapper that gets called on page load that loads in the currently saved values
+     */
     function onLoad() {
         // get full names array
         getValues()
@@ -25,11 +34,10 @@ $('document').ready(() => {
             });
     }
 
-
-
-
-
-    function setValues(values) {
+    /**
+     * Saves the current values into chrome storage
+     */
+    function setValues() {
         let newValues = {};
         fullNamesArr.map((inputId) => {
             let $inputId = $(`#${inputId}`);
@@ -46,7 +54,11 @@ $('document').ready(() => {
         });
         alertMessageSave();
     }
-    // iterate thru name array
+
+    /**
+     * Takes in the saved values and sets the checkboxes accordingly
+     * @param {Object} values 
+     */
     function loadValues(values) {
         fullNamesArr.map((inputId) => {
 
