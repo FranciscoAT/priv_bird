@@ -64,7 +64,9 @@ npm run --prefix ./extension start # Runs gulp for generating bundles from encry
 ## Authors
 
 [Francisco Trindade :coffee:](http://franciscot.me)
+
 [Catherine DesOrmeaux](https://github.com/minoucatou)
+
 [NamChi Nguyen](https://github.com/namichie)
 
 
