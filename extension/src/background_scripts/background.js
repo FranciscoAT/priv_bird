@@ -293,6 +293,10 @@ function updateBadge() {
  * @param {string} text Badge text
  */
 function setBadgeTextColor(color, text) {
-    chrome.browserAction.setBadgeText({ text: text });
-    chrome.browserAction.setBadgeBackgroundColor({ color: color });
+    chrome.browserAction.setBadgeText({
+        text: text
+    });
+    chrome.browserAction.setBadgeBackgroundColor({
+        color: color
+    });
 }
