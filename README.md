@@ -13,9 +13,6 @@ There are three components as part of this project.
 - [Sample Site](./sample-site), sample test site for testing the Chrome extension
 - [Remote Site](./remote-site), acts as simple key authority for IBE
 
-To run everything follow #Installing
-
-
 ### Prerequisites
 
 Non-Dev:
