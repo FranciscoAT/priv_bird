@@ -69,6 +69,6 @@ npm run --prefix ./extension start # Runs gulp for generating bundles from encry
 
 ## Acknowledgments
 
-Bit tip of the hat to everyone who worked on the JavaScript IBE.js library, the current `npm` version we used: https://www.npmjs.com/package/ibejs
+Tip of the hat to everyone who worked on the JavaScript IBE.js library: https://www.npmjs.com/package/ibejs
 
-Big thanks to our Supervising Professor [Professor Adams](http://www.site.uottawa.ca/~cadams/)
+Big thanks to our Supervising Professor, [Professor Adams](http://www.site.uottawa.ca/~cadams/)
