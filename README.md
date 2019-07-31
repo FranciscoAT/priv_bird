@@ -5,6 +5,8 @@
 
 Privacy Bird was an old Internet Explorer [extension](http://www.privacybird.org/). This project was constructed as part of an Honours Project to bring Privacy Bird to Google Chrome. Using [P3P](https://www.w3.org/P3P/), this extension will analyze websites that publish a `p3p.xml` and determine whether or not the website violates and Privacy Policies set by the user. Additionally Privacy Bird will encrypt any outgoing form data using [Identity Based Encryption](https://en.wikipedia.org/wiki/ID-based_encryption), IBE, should a valid P3P spec exist on the website.
 
+As a forewarning this repository is no longer _actively_ maintained. However that being said, if you have questions or suggested improvements feel free to make issues or pull requests. Won't guarentee fast turnaround time, but will get to it and help respond to anything or integrate the PRs.
+
 ## Getting Started
 
 There are three components as part of this project.
