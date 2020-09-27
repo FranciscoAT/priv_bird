@@ -7,6 +7,8 @@ Privacy Bird was an old Internet Explorer [extension](http://www.privacybird.org
 
 As a forewarning this repository is no longer _actively_ maintained. However that being said, if you have questions or suggested improvements feel free to make issues or pull requests. Won't guarentee fast turnaround time, but will get to it and help respond to anything or integrate the PRs.
 
+This project was published in the [Frontiers in Computer Science](https://www.frontiersin.org/articles/10.3389/fcomp.2020.00002/full) journal, check it out!
+
 ## Getting Started
 
 There are three components as part of this project.
